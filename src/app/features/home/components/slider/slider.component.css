@@ -1,0 +1,32 @@
+.item {
+  background-image:
+    linear-gradient(to right, #00c758e6, #05df7280), url(/assets/home-slider-1.d79601a8.png);
+  background-size: cover;
+  background-position: center;
+}
+
+swiper-container::part(button-prev),
+swiper-container::part(button-next) {
+  background-color: beige;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  color: var(--color-primary);
+  padding: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.404);
+}
+
+swiper-container::part(bullet) {
+  background-color: white;
+  width: 15px;
+  height: 15px;
+}
+
+swiper-container::part(bullet-active) {
+  background-color: white;
+  color: white;
+  width: 35px;
+  height: 15px;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
