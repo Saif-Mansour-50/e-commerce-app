@@ -43,7 +43,7 @@
       <p class="text-sm text-gray-500 mt-1">Sign in to continue your fresh shopping experience</p>
     </div>
 
-    <form class="space-y-5">
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="space-y-5">
       <div>
         <label for="email" class="block text-sm font-medium text-gray-700 mb-1.5"
           >Email Address</label
@@ -53,6 +53,7 @@
             class="fa-regular fa-envelope text-gray-400 absolute left-4 top-1/2 -translate-y-1/2"
           ></i>
           <input
+            formControlName="email"
             id="email"
             type="email"
             autocomplete="email"
@@ -61,6 +62,26 @@
           />
         </div>
       </div>
+
+      @let emailControl = loginForm.get('email');
+
+      @if (emailControl?.invalid && emailControl?.touched) {
+        <div
+          class="flex p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
+          role="alert"
+        >
+          <span class="sr-only">Danger</span>
+          <div>
+            <ul class="mt-2 list-disc list-outside space-y-1 ps-2.5">
+              @if (emailControl?.hasError('required')) {
+                <li>Email is required.</li>
+              } @else if (emailControl?.hasError('email')) {
+                <li>Please enter a valid email address.</li>
+              }
+            </ul>
+          </div>
+        </div>
+      }
 
       <div>
         <div class="flex items-center justify-between mb-1.5">
@@ -72,6 +93,7 @@
         <div class="relative">
           <i class="fa-solid fa-lock text-gray-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
           <input
+            formControlName="password"
             id="password"
             type="password"
             autocomplete="current-password"
@@ -80,6 +102,28 @@
           />
         </div>
       </div>
+
+      @let passwordControl = loginForm.get('password');
+
+      @if (passwordControl?.invalid && passwordControl?.touched) {
+        <div
+          class="flex p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
+          role="alert"
+        >
+          <span class="sr-only">Danger</span>
+          <div>
+            <ul class="mt-2 list-disc list-outside space-y-1 ps-2.5">
+              @if (passwordControl?.hasError('required')) {
+                <li>Password is required.</li>
+              } @else if (passwordControl?.hasError('pattern')) {
+                <li>
+                  Must contain at least 8 chars, 1 uppercase, 1 lowercase, 1 number, and 1 special
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+      }
 
       <div class="pt-2">
         <button
