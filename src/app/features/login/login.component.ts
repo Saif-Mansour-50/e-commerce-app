@@ -41,6 +41,10 @@ export class LoginComponent {
 
             localStorage.setItem('freshUser', JSON.stringify(res.user));
 
+            this.authService.isLogged.set(true);
+
+            console.log(this.authService.isLogged());
+
             this.router.navigate(['/']);
           }
         },
