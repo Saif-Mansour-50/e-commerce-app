@@ -19,10 +19,37 @@ export class CartComponent implements OnInit {
   }
 
   getCartData(): void {
-    this.cartService.getLoggedUserCart().subscribe({
+    this.cartService.getCartData().subscribe({
       next: (res) => {
         console.log(res.data);
 
+        this.cartDetails.set(res.data);
+      },
+    });
+  }
+
+  removeItem(id: string): void {
+    this.cartService.removeProductItem(id).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.cartDetails.set(res.data);
+      },
+    });
+  }
+
+  update(id: string, count: number): void {
+    this.cartService.updateProductItem(id, count).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.cartDetails.set(res.data);
+      },
+    });
+  }
+
+  clearAll(): void {
+    this.cartService.clearCart().subscribe({
+      next: (res) => {
+        console.log(res);
         this.cartDetails.set(res.data);
       },
     });

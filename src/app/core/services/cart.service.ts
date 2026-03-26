@@ -15,7 +15,21 @@ export class CartService {
     });
   }
 
-  getLoggedUserCart(): Observable<any> {
+  getCartData(): Observable<any> {
     return this.httpClient.get(environment.baseUrl + `/api/v2/cart`);
+  }
+
+  removeProductItem(productId: string): Observable<any> {
+    return this.httpClient.delete(environment.baseUrl + `/api/v2/cart/${productId}`);
+  }
+
+  updateProductItem(productId: string, count: number): Observable<any> {
+    return this.httpClient.put(environment.baseUrl + `/api/v2/cart/${productId}`, {
+      count: count,
+    });
+  }
+
+  clearCart(): Observable<any> {
+    return this.httpClient.delete(environment.baseUrl + `/api/v2/cart`);
   }
 }

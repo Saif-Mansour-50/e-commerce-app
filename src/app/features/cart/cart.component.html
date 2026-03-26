@@ -67,7 +67,8 @@
             >
               <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden h-10">
                 <button
-                  class="px-3 h-full text-gray-500 hover:bg-gray-100 transition-colors focus:outline-hidden"
+                  (click)="update(item.product._id, item.count - 1)"
+                  class="px-3 h-full text-gray-500 hover:bg-gray-100 transition-colors focus:outline-hidden cursor-pointer"
                 >
                   <i class="fa-solid fa-minus text-xs"></i>
                 </button>
@@ -77,7 +78,8 @@
                 </span>
 
                 <button
-                  class="px-3 h-full bg-[#138D46] text-white hover:bg-green-700 transition-colors focus:outline-hidden"
+                  (click)="update(item.product._id, item.count + 1)"
+                  class="px-3 h-full bg-[#138D46] text-white hover:bg-green-700 transition-colors focus:outline-hidden cursor-pointer"
                 >
                   <i class="fa-solid fa-plus text-xs"></i>
                 </button>
@@ -91,11 +93,35 @@
               </div>
 
               <button
-                class="w-10 h-10 flex items-center justify-center bg-red-50 text-red-500 rounded-lg hover:bg-red-100 transition-colors focus:outline-hidden"
+                (click)="removeItem(item.product.id)"
+                class="w-10 h-10 flex items-center justify-center bg-red-50 text-red-500 rounded-lg hover:bg-red-100 transition-colors focus:outline-hidden cursor-pointer"
               >
                 <i class="fa-regular fa-trash-can"></i>
               </button>
             </div>
+          </div>
+        } @empty {
+          <div class="text-center px-4 max-w-md mx-auto">
+            <div
+              class="mx-auto flex h-40 w-40 items-center justify-center rounded-full bg-gray-50 mb-8"
+            >
+              <i class="fa-solid fa-box-open text-6xl text-gray-300"></i>
+            </div>
+
+            <h2 class="text-3xl font-bold text-gray-900 mb-4 tracking-tight">Your cart is empty</h2>
+
+            <p class="text-gray-500 mb-10 text-lg leading-relaxed">
+              Looks like you haven't added anything to your cart yet. <br class="hidden sm:block" />
+              Start exploring our products!
+            </p>
+
+            <button
+              routerLink="/"
+              class="inline-flex items-center justify-center gap-3 rounded-full bg-emerald-500 px-8 py-4 text-base font-semibold text-white transition-all duration-200 hover:bg-emerald-600 hover:-translate-y-0.5 focus:ring-4 focus:ring-emerald-100 focus:outline-hidden shadow-sm hover:shadow-md cursor-pointer"
+            >
+              Start Shopping
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
           </div>
         }
 
@@ -107,7 +133,8 @@
             <i class="fa-solid fa-arrow-left-long"></i> Continue Shopping
           </button>
           <button
-            class="text-gray-400 hover:text-red-500 font-medium flex items-center gap-2 transition-colors focus:outline-hidden"
+            (click)="clearAll()"
+            class="text-gray-400 cursor-pointer hover:text-red-500 font-medium flex items-center gap-2 transition-colors focus:outline-hidden"
           >
             <i class="fa-solid fa-trash-can text-sm"></i> Clear all items
           </button>
