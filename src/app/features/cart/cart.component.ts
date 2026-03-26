@@ -1,7 +1,8 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { CartService } from '../../core/services/cart.service';
 import { Cart } from './models/cart.interface';
 import { RouterLink } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
@@ -11,11 +12,14 @@ import { RouterLink } from '@angular/router';
 })
 export class CartComponent implements OnInit {
   private readonly cartService = inject(CartService);
+  private readonly pLATFORM_ID = inject(PLATFORM_ID);
 
   cartDetails = signal<Cart>({} as Cart);
 
   ngOnInit(): void {
-    this.getCartData();
+    if (isPlatformBrowser(this.pLATFORM_ID)) {
+      this.getCartData();
+    }
   }
 
   getCartData(): void {
@@ -32,6 +36,8 @@ export class CartComponent implements OnInit {
     this.cartService.removeProductItem(id).subscribe({
       next: (res) => {
         console.log(res);
+        this.cartService.cartCount.set(res.numOfCartItems);
+
         this.cartDetails.set(res.data);
       },
     });
@@ -50,6 +56,8 @@ export class CartComponent implements OnInit {
     this.cartService.clearCart().subscribe({
       next: (res) => {
         console.log(res);
+        this.cartService.cartCount.set(res.numOfCartItems);
+
         this.cartDetails.set(res.data);
       },
     });

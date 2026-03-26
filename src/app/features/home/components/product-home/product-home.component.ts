@@ -39,8 +39,9 @@ export class ProductHomeComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          (this.toastrService.success(res.message, 'FreshCart'),
-            { progressBar: true, closeButton: true });
+          (this.cartService.cartCount.set(res.numOfCartItems),
+            (this.toastrService.success(res.message, 'FreshCart'),
+            { progressBar: true, closeButton: true }));
         },
       });
     } else {

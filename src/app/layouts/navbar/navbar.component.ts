@@ -4,6 +4,7 @@ import { FlowbiteService } from '../../core/services/flowbite.service';
 import { initFlowbite } from 'flowbite';
 import { AuthService } from '../../core/auth/services/auth.service';
 import { isPlatformBrowser } from '@angular/common';
+import { CartService } from '../../core/services/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,14 +14,18 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class NavbarComponent {
   private readonly authService = inject(AuthService);
+  private readonly cartService = inject(CartService);
   private readonly pLATFORM_ID = inject(PLATFORM_ID);
 
   isLogged = computed(() => this.authService.isLogged());
+
+  count = computed(() => this.cartService.cartCount());
 
   constructor(private flowbiteService: FlowbiteService) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.pLATFORM_ID)) {
+      this.getCartCount();
       if (localStorage.getItem('freshToken')) {
         this.authService.isLogged.set(true);
       }
@@ -33,5 +38,14 @@ export class NavbarComponent {
 
   logOut() {
     this.authService.singOut();
+  }
+
+  getCartCount(): void {
+    this.cartService.getCartData().subscribe({
+      next: (res) => {
+        console.log(res.numOfCartItems);
+        this.cartService.cartCount.set(res.numOfCartItems);
+      },
+    });
   }
 }

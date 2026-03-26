@@ -44,14 +44,14 @@ export const routes: Routes = [
     title: 'details page',
   },
   {
-    path: 'checkout',
+    path: 'checkout/:id',
     loadComponent: () =>
       import('./features/checkout/checkout.component').then((c) => c.CheckoutComponent),
     title: 'checkout page',
     canActivate: [authGuard],
   },
   {
-    path: 'orders',
+    path: 'allorders',
     loadComponent: () =>
       import('./features/orders/orders.component').then((c) => c.OrdersComponent),
     title: 'orders page',
