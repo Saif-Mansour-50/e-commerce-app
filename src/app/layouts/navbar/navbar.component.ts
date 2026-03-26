@@ -30,4 +30,8 @@ export class NavbarComponent {
       initFlowbite();
     });
   }
+
+  logOut() {
+    this.authService.singOut();
+  }
 }

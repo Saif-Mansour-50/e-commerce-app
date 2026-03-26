@@ -64,7 +64,8 @@
               </div>
 
               <button
-                class="w-10 h-10 bg-emerald-600 text-white rounded-lg flex items-center justify-center hover:bg-emerald-700 transition-colors shadow-sm active:scale-95"
+                (click)="addToCart(product._id)"
+                class="w-10 h-10 bg-emerald-600 text-white rounded-lg flex items-center justify-center hover:bg-emerald-700 transition-colors shadow-sm active:scale-95 cursor-pointer"
               >
                 <i class="fas fa-plus"></i>
               </button>

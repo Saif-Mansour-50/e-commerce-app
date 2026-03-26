@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/auth/guards/auth-guard';
 
 export const routes: Routes = [
   {
@@ -28,11 +29,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/wishlist/wishlist.component').then((c) => c.WishlistComponent),
     title: 'wishlist page',
+    canActivate: [authGuard],
   },
   {
     path: 'cart',
     loadComponent: () => import('./features/cart/cart.component').then((c) => c.CartComponent),
     title: 'cart page',
+    canActivate: [authGuard],
   },
   {
     path: 'details/:id/:slug',
@@ -45,6 +48,7 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/checkout/checkout.component').then((c) => c.CheckoutComponent),
     title: 'checkout page',
+    canActivate: [authGuard],
   },
   {
     path: 'orders',

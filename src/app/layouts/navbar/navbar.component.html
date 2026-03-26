@@ -93,6 +93,7 @@
       <div class="hidden sm:flex items-center gap-4 pl-2 md:border-l md:border-gray-200 md:pl-4">
         @if (isLogged()) {
           <button
+            (click)="logOut()"
             class="flex items-center gap-2 font-medium text-gray-700 transition-colors hover:text-emerald-600 cursor-pointer"
           >
             SignOut
