@@ -6,7 +6,7 @@ import { CardComponent } from '../../../../shared/ui/card/card.component';
 
 @Component({
   selector: 'app-product-home',
-  imports: [RouterLink, CardComponent],
+  imports: [CardComponent],
   templateUrl: './product-home.component.html',
   styleUrl: './product-home.component.css',
 })
