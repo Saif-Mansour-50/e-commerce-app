@@ -1,0 +1,91 @@
+/* تخصيص مظهر pagination */
+:host ::ng-deep .ngx-pagination {
+  margin: 2rem 0 0;
+  padding: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+:host ::ng-deep .ngx-pagination li {
+  display: inline-block;
+  margin: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+:host ::ng-deep .ngx-pagination li a,
+:host ::ng-deep .ngx-pagination li button {
+  padding: 0.75rem 1rem;
+  color: #4b5563;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+}
+
+:host ::ng-deep .ngx-pagination li a:hover,
+:host ::ng-deep .ngx-pagination li button:hover {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+  transform: translateY(-1px);
+}
+
+:host ::ng-deep .ngx-pagination li.current {
+  background-color: #3b82f6; /* primary color */
+  color: white;
+  border-radius: 8px;
+}
+
+:host ::ng-deep .ngx-pagination li.current a,
+:host ::ng-deep .ngx-pagination li.current span {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+:host ::ng-deep .ngx-pagination li.disabled a,
+:host ::ng-deep .ngx-pagination li.disabled span {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #f9fafb;
+}
+
+:host ::ng-deep .ngx-pagination li.pagination-previous a,
+:host ::ng-deep .ngx-pagination li.pagination-next a {
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+}
+
+:host ::ng-deep .ngx-pagination li.pagination-previous a::before {
+  content: '«';
+  margin-right: 0.5rem;
+}
+
+:host ::ng-deep .ngx-pagination li.pagination-next a::after {
+  content: '»';
+  margin-left: 0.5rem;
+}
+
+:host ::ng-deep .ngx-pagination .small-screen {
+  display: none;
+}
+
+/* تحسين responsiveness */
+@media (max-width: 640px) {
+  :host ::ng-deep .ngx-pagination li a,
+  :host ::ng-deep .ngx-pagination li button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  :host ::ng-deep .ngx-pagination li.pagination-previous a,
+  :host ::ng-deep .ngx-pagination li.pagination-next a {
+    padding: 0.5rem 0.75rem;
+  }
+}

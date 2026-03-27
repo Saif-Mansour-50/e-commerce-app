@@ -1,1 +1,36 @@
-<p>shop works!</p>
+<section class="py-10 bg-white">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-semibold">Featured <span class="text-primary">Products</span></h2>
+
+    <div class="mt-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      @for (
+        product of productList()
+          | paginate
+            : {
+                id: 'pageId',
+                itemsPerPage: pageSize(),
+                currentPage: currentPage(),
+                totalItems: total(),
+              };
+        track product._id
+      ) {
+        <app-card [product]="product" />
+      }
+    </div>
+
+    <pagination-controls
+      id="pageId"
+      (pageChange)="onPageChange($event)"
+      [maxSize]="4"
+      [directionLinks]="true"
+      [autoHide]="true"
+      [responsive]="true"
+      previousLabel="Previous"
+      nextLabel="Next"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+    >
+    </pagination-controls>
+  </div>
+</section>

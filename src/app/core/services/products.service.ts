@@ -9,8 +9,8 @@ import { environment } from '../../../environments/environment';
 export class ProductsService {
   private readonly httpClient = inject(HttpClient);
 
-  getAllProducts(): Observable<any> {
-    return this.httpClient.get(environment.baseUrl + `/api/v1/products`);
+  getAllProducts(pageNum: number = 1): Observable<any> {
+    return this.httpClient.get(environment.baseUrl + `/api/v1/products?page=${pageNum}`);
   }
 
   getSpecificProduct(productId: string): Observable<any> {
