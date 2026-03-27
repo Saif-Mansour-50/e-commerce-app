@@ -7,9 +7,9 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class CartService {
-  private readonly httpClient = inject(HttpClient);
-
   cartCount = signal<number>(0);
+
+  private readonly httpClient = inject(HttpClient);
 
   creatCashOrder(cartId: string, data: object): Observable<any> {
     return this.httpClient.post(environment.baseUrl + `/api/v1/orders/${cartId}`, data);

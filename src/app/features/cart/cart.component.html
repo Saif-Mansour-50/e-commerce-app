@@ -12,7 +12,9 @@
         </div>
         <p class="text-gray-500 text-lg">
           You have
-          <span class="font-bold text-[#138D46]"> {{ cartDetails().products.length }} items</span>
+          @if (cartDetails().products) {
+            <span class="font-bold text-[#138D46]"> {{ cartDetails().products.length }} items</span>
+          }
           in your cart
         </p>
       </div>

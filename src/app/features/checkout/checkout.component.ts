@@ -32,25 +32,27 @@ export class CheckoutComponent implements OnInit {
   }
 
   submitForm(): void {
-    if (this.flag() === 'cash') {
-      this.cartService.creatCashOrder(this.cartId(), this.checkOut.value).subscribe({
-        next: (res) => {
-          console.log(res);
+    if (this.checkOut.valid) {
+      if (this.flag() === 'cash') {
+        this.cartService.creatCashOrder(this.cartId(), this.checkOut.value).subscribe({
+          next: (res) => {
+            console.log(res);
 
-          if (res.status === 'success') {
-            this.router.navigate(['/allorders']);
-          }
-        },
-      });
-    } else {
-      this.cartService.creatVisaOrder(this.cartId(), this.checkOut.value).subscribe({
-        next: (res) => {
-          console.log(res);
-          if (res.status === 'success') {
-            window.open(res.session.url, '_self');
-          }
-        },
-      });
+            if (res.status === 'success') {
+              this.router.navigate(['/allorders']);
+            }
+          },
+        });
+      } else {
+        this.cartService.creatVisaOrder(this.cartId(), this.checkOut.value).subscribe({
+          next: (res) => {
+            console.log(res);
+            if (res.status === 'success') {
+              window.open(res.session.url, '_self');
+            }
+          },
+        });
+      }
     }
   }
 
