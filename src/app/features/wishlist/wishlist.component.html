@@ -1,1 +1,101 @@
-<p>wishlist works!</p>
+<div class="container mx-auto py-10">
+  <!-- Breadcrumb -->
+  <div class="text-sm text-gray-500 mb-6">
+    Home / <span class="text-gray-700 font-medium">Wishlist</span>
+  </div>
+
+  <!-- Title -->
+  <div class="flex items-center gap-4 mb-8">
+    <div class="w-12 h-12 flex items-center justify-center bg-red-100 rounded-xl">
+      <i class="fa-solid fa-heart text-red-500 text-xl"></i>
+    </div>
+
+    <div>
+      <h1 class="text-2xl font-bold">My Wishlist</h1>
+      <p class="text-gray-500 text-sm">1 item saved</p>
+    </div>
+  </div>
+
+  <!-- Table Header (desktop only) -->
+  <div
+    class="hidden md:grid grid-cols-4 bg-gray-50 border border-gray-200 rounded-t-2xl p-4 text-sm text-gray-500 font-semibold"
+  >
+    <span>Product</span>
+    <span>Price</span>
+    <span>Status</span>
+    <span class="text-right">Actions</span>
+  </div>
+
+  <!-- Wishlist Item -->
+  @for (product of wishlistProducts(); track product._id) {
+    <div
+      class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap mb-2.5 items-center border border-gray-200 md:border-t-0 rounded-2xl md:rounded-b-2xl p-4"
+    >
+      <!-- Product -->
+      <div class="flex items-center gap-4">
+        <div class="bg-gray-200 rounded-xl">
+          <img [src]="product.imageCover" [alt]="product.title" class="size-20 rounded-xl p-1" />
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-gray-800">
+            {{ product.title.split(' ').slice(0, 2).join(' ') }}
+          </h3>
+          <p class="text-sm text-gray-500">{{ product.category.name }}</p>
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="font-semibold text-gray-800 md:text-left">
+        <span class="md:hidden text-gray-500 text-sm">Price: </span>
+        {{ product.price }}
+      </div>
+
+      <!-- Status -->
+      <div>
+        <span
+          class="flex items-center gap-2 w-fit bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm"
+        >
+          <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+          In Stock
+        </span>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex flex-wrap md:justify-end gap-3 mt-2 md:mt-0">
+        <!-- Add to Cart -->
+        <button
+          (click)="addToCard(product._id)"
+          class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm cursor-pointer"
+        >
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="hidden xl:inline">Add to Cart</span>
+        </button>
+
+        <!-- Secondary Button -->
+        <button
+          class="flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition"
+        >
+          <i class="fa-solid fa-check text-green-600"></i>
+          <span class="hidden xl:inline">View Cart</span>
+        </button>
+
+        <!-- Delete -->
+        <button
+          (click)="removeFromWishList(product._id)"
+          class="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-lg text-gray-500 hover:text-red-700 cursor-pointer"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Continue Shopping -->
+  <div class="mt-6">
+    <a href="#" class="flex items-center gap-2 text-gray-600 hover:text-black">
+      <i class="fa-solid fa-arrow-left"></i>
+      Continue Shopping
+    </a>
+  </div>
+</div>

@@ -16,4 +16,16 @@ export class ProductsService {
   getSpecificProduct(productId: string): Observable<any> {
     return this.httpClient.get(environment.baseUrl + `/api/v1/products/${productId}`);
   }
+
+  addProductToWishList(productId: string): Observable<any> {
+    return this.httpClient.post(environment.baseUrl + `/api/v1/wishlist`, { productId });
+  }
+
+  getProductToWishList(): Observable<any> {
+    return this.httpClient.get(environment.baseUrl + `/api/v1/wishlist`);
+  }
+
+  removeProductFromWishList(id: String): Observable<any> {
+    return this.httpClient.delete(environment.baseUrl + `/api/v1/wishlist/${id}`);
+  }
 }

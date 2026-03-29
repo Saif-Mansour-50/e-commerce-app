@@ -41,3 +41,42 @@ interface Subcategory {
   slug: string;
   category: string;
 }
+
+export interface CashOrderPayload {
+  shippingAddress: ShippingAddress;
+}
+
+export interface CashOrderResponse {
+  status: 'success' | 'fail';
+  data: Data;
+}
+
+export interface Data {
+  taxPrice: number;
+  shippingPrice: number;
+  totalOrderPrice: number;
+  paymentMethodType: string;
+  isPaid: boolean;
+  isDelivered: boolean;
+  _id: string;
+  user: string;
+  cartItems: CartItem[];
+  shippingAddress: ShippingAddress;
+  createdAt: string;
+  updatedAt: string;
+  id: number;
+  __v: number;
+}
+
+export interface CartItem {
+  count: number;
+  _id: string;
+  product: string;
+  price: number;
+}
+
+export interface ShippingAddress {
+  details: string;
+  phone: string;
+  city: string;
+}

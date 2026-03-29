@@ -14,7 +14,7 @@ import { CartService } from '../../core/services/cart.service';
 })
 export class NavbarComponent {
   private readonly authService = inject(AuthService);
-  private readonly cartService = inject(CartService);
+  protected readonly cartService = inject(CartService);
   private readonly pLATFORM_ID = inject(PLATFORM_ID);
 
   isLogged = computed(() => this.authService.isLogged());
@@ -43,8 +43,7 @@ export class NavbarComponent {
   getCartCount(): void {
     this.cartService.getCartData().subscribe({
       next: (res) => {
-        console.log(res.numOfCartItems);
-        this.cartService.cartCount.set(res.numOfCartItems);
+        this.cartService.cartDetails.set(res.data);
       },
     });
   }

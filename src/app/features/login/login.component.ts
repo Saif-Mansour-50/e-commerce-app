@@ -20,7 +20,7 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  isHidden = signal<boolean>(false);
+  isHidden = signal<boolean>(true);
 
   loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],

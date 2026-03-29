@@ -11,16 +11,14 @@ import { CartService } from '../../core/services/cart.service';
 })
 export class CheckoutComponent implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
-  private readonly router = inject(Router);
   private readonly cartService = inject(CartService);
+  private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
   checkOut: FormGroup = this.fb.group({
-    shippingAddress: this.fb.group({
-      details: ['', Validators.required],
-      phone: ['', Validators.required],
-      city: ['', Validators.required],
-    }),
+    details: ['', Validators.required],
+    phone: ['', Validators.required],
+    city: ['', Validators.required],
   });
 
   flag = signal<string>('cash');
@@ -34,10 +32,10 @@ export class CheckoutComponent implements OnInit {
   submitForm(): void {
     if (this.checkOut.valid) {
       if (this.flag() === 'cash') {
+        console.log('Form Value: ', this.checkOut.value);
+
         this.cartService.creatCashOrder(this.cartId(), this.checkOut.value).subscribe({
           next: (res) => {
-            console.log(res);
-
             if (res.status === 'success') {
               this.router.navigate(['/allorders']);
             }
@@ -46,7 +44,6 @@ export class CheckoutComponent implements OnInit {
       } else {
         this.cartService.creatVisaOrder(this.cartId(), this.checkOut.value).subscribe({
           next: (res) => {
-            console.log(res);
             if (res.status === 'success') {
               window.open(res.session.url, '_self');
             }

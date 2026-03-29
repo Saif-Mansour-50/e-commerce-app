@@ -1,7 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProductsService } from '../../../../core/services/products.service';
 import { Product } from '../../../../core/models/product.interface';
-import { RouterLink } from '@angular/router';
 import { CardComponent } from '../../../../shared/ui/card/card.component';
 
 @Component({
@@ -23,6 +22,7 @@ export class ProductHomeComponent implements OnInit {
     this.productsService.getAllProducts().subscribe({
       next: (res) => {
         this.productList.set(res.data);
+        console.log(res);
       },
       error: (err) => {
         console.log(err);
