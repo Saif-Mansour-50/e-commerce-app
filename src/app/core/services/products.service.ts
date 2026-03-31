@@ -17,6 +17,12 @@ export class ProductsService {
     return this.httpClient.get(environment.baseUrl + `/api/v1/products/${productId}`);
   }
 
+  getProductsByBrand(brandId: string, pageNum: number = 1): Observable<any> {
+    return this.httpClient.get(
+      environment.baseUrl + `/api/v1/products?brand=${brandId}&page=${pageNum}`,
+    );
+  }
+
   addProductToWishList(productId: string): Observable<any> {
     return this.httpClient.post(environment.baseUrl + `/api/v1/wishlist`, { productId });
   }

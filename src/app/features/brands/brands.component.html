@@ -20,3 +20,22 @@
     </div>
   </div>
 </div>
+
+<div class="container mx-auto p-4">
+  <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-4">
+    @for (item of brandList(); track item._id) {
+      <div
+        [routerLink]="['/brandDetails', item._id, item.slug]"
+        class="bg-gray-100 rounded-xl p-6 text-center shadow hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer group"
+      >
+        <img [src]="item.image" [alt]="item.name" class="mx-auto mb-3 h-20 w-auto object-contain" />
+        <p class="font-medium mb-2 hover:text-violet-600">{{ item.name }}</p>
+        <button
+          class="text-sm text-violet-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:text-violet-800"
+        >
+          View Products
+        </button>
+      </div>
+    }
+  </div>
+</div>

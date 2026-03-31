@@ -25,6 +25,15 @@ export const routes: Routes = [
     title: 'brands page',
   },
   {
+    path: 'brandDetails/:id/:slug',
+    loadComponent: () =>
+      import('./features/brand-details/brand-details.component').then(
+        (c) => c.BrandDetailsComponent,
+      ),
+    title: 'brands spacific ',
+  },
+
+  {
     path: 'wishlist',
     loadComponent: () =>
       import('./features/wishlist/wishlist.component').then((c) => c.WishlistComponent),

@@ -1,0 +1,114 @@
+<section class="py-10 bg-white">
+  <div class="bg-primary mb-5 px-5 py-4 min-h-60">
+    <div class="text-white/70 text-sm mb-4">
+      <a routerLink="/" class="hover:text-white transition">Home</a>
+      <span> / </span>
+      <span routerLink="/brands" class="hover:text-white transition cursor-pointer">Brands</span>
+      <span> / </span>
+      <span>{{ brandDetails().name }} </span>
+    </div>
+    <div class="flex items-center gap-5">
+      <div
+        class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl ring-1 ring-white/30"
+      >
+        @if (brandDetails().image) {
+          <img
+            [src]="brandDetails().image"
+            [alt]="brandDetails().name"
+            class="w-12 h-12 object-contain"
+          />
+        } @else {
+          <i class="fa-solid fa-box-open text-3xl text-white"></i>
+        }
+      </div>
+      <div class="text-white">
+        <h2 class="text-5xl font-bold mb-2">{{ brandDetails().name }}</h2>
+        <p class="opacity-80">Shop {{ brandDetails().name }} products</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4">
+    <div class="mb-4">
+      <p class="text-gray-600">عدد المنتجات: {{ productList().length }}</p>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      @for (product of productList(); track product._id) {
+        <div
+          class="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300"
+        >
+          <div class="relative overflow-hidden mb-4">
+            <img
+              [src]="product.imageCover"
+              [alt]="product.title"
+              class="w-full h-48 object-contain"
+            />
+
+            <div class="absolute top-2 right-2 flex flex-col gap-2">
+              <button
+                class="w-10 h-10 bg-white shadow-sm border border-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-emerald-600 hover:text-white transition-all"
+              >
+                <i class="fa-heart text-lg"></i>
+              </button>
+              <button
+                [routerLink]="['/details', product._id, product.slug]"
+                class="w-10 cursor-pointer h-10 bg-white shadow-sm border border-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-emerald-600 hover:text-white transition-all"
+              >
+                <i class="far fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="space-y-1">
+            <p class="text-xs text-gray-400 tracking-wide">
+              {{ product.category.name }}
+            </p>
+
+            <h3
+              class="text-lg font-medium text-slate-800 hover:text-emerald-600 cursor-pointer transition-colors line-clamp-2"
+            >
+              {{ product.title }}
+            </h3>
+
+            <div class="flex items-center gap-1">
+              <div class="flex text-yellow-400 text-xs gap-0.5"></div>
+              <span class="text-xs text-gray-400 font-medium">
+                {{ product.ratingsAverage }} ({{ product.ratingsQuantity }})
+              </span>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+              <div class="flex flex-col">
+                @if (product.price) {
+                  <div class="flex items-center gap-2">
+                    <span class="text-lg font-medium text-slate-900">
+                      {{ product.price }} EGP
+                    </span>
+                    <span class="text-sm text-gray-400 line-through">
+                      {{ product.price }} EGP
+                    </span>
+                  </div>
+                } @else {
+                  <span class="text-lg font-medium text-slate-900"> {{ product.price }} EGP </span>
+                }
+              </div>
+              <button
+                class="w-10 h-10 bg-emerald-600 text-white rounded-lg flex items-center justify-center hover:bg-emerald-700 transition-colors shadow-sm active:scale-95 cursor-pointer"
+              >
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      } @empty {
+        <div class="col-span-full text-center py-20">
+          <i class="fa-solid fa-box-open text-6xl text-gray-300 mb-4"></i>
+          <p class="text-gray-500">No products found for {{ brandDetails().name }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
