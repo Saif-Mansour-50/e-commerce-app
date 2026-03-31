@@ -1,24 +1,31 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ProductsService } from '../../core/services/products.service';
 import { Product } from '../../core/models/product.interface';
 import { CartService } from '../../core/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { RouterLink } from '@angular/router';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 
 @Component({
   selector: 'app-wishlist',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.css',
 })
 export class WishlistComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
   private readonly toastrService = inject(ToastrService);
-  private readonly cartService = inject(CartService);
+  protected readonly cartService = inject(CartService);
+  private readonly pLATFORM_ID = inject(PLATFORM_ID);
 
   wishlistProducts = signal<Product[]>([]);
 
+  count = computed(() => this.cartService.cartCount());
+
   ngOnInit(): void {
-    this.getWishListProducts();
+    if (isPlatformBrowser(this.pLATFORM_ID)) {
+      this.getWishListProducts();
+    }
   }
 
   getWishListProducts(): void {
@@ -37,21 +44,42 @@ export class WishlistComponent implements OnInit {
     this.productsService.removeProductFromWishList(productId).subscribe({
       next: () => {
         this.wishlistProducts.update((list) => list.filter((p) => p._id !== productId));
+
+        if (isPlatformBrowser(this.pLATFORM_ID)) {
+          this.toastrService.success('Product removed from wishlist', 'freshCart', {
+            progressBar: true,
+          });
+        }
       },
-      error: (err) => console.log(err),
+      error: (err) => {
+        console.log(err);
+        if (isPlatformBrowser(this.pLATFORM_ID)) {
+          this.toastrService.error('Failed to remove product', 'freshCart', { progressBar: true });
+        }
+      },
     });
   }
 
   addToCard(id: string): void {
-    if (localStorage.getItem('freshToken')) {
+    if (isPlatformBrowser(this.pLATFORM_ID) && localStorage.getItem('freshToken')) {
       this.cartService.addProductToCart(id).subscribe({
         next: (res) => {
           console.log(res);
 
-          this.toastrService.success(res.message, 'freshCart', { progressBar: true });
+          this.cartService.cartDetails.set(res.data);
+
+          if (isPlatformBrowser(this.pLATFORM_ID)) {
+            this.toastrService.success(res.message, 'freshCart', { progressBar: true });
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          if (isPlatformBrowser(this.pLATFORM_ID)) {
+            this.toastrService.error('Failed to add product', 'freshCart', { progressBar: true });
+          }
         },
       });
-    } else {
+    } else if (isPlatformBrowser(this.pLATFORM_ID)) {
       this.toastrService.warning('Login First', 'freshCart', { progressBar: true });
     }
   }
