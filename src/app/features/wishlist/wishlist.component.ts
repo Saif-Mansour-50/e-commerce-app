@@ -19,6 +19,7 @@ export class WishlistComponent implements OnInit {
   private readonly pLATFORM_ID = inject(PLATFORM_ID);
 
   wishlistProducts = signal<Product[]>([]);
+  wishlistcount = signal<number>(0);
 
   count = computed(() => this.cartService.cartCount());
 
@@ -33,6 +34,7 @@ export class WishlistComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.wishlistProducts.set(res.data);
+        this.wishlistcount.set(res.count);
       },
       error: (err) => {
         console.log(err);
@@ -42,7 +44,13 @@ export class WishlistComponent implements OnInit {
 
   removeFromWishList(productId: string): void {
     this.productsService.removeProductFromWishList(productId).subscribe({
-      next: () => {
+      next: (res) => {
+        this.wishlistProducts.update((list) => list.filter((p) => p._id !== productId));
+        console.log(res);
+
+        const newCount = res.data.length;
+        this.wishlistcount.set(newCount);
+
         this.wishlistProducts.update((list) => list.filter((p) => p._id !== productId));
 
         if (isPlatformBrowser(this.pLATFORM_ID)) {
