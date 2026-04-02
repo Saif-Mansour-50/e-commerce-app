@@ -1,0 +1,43 @@
+<div
+  class="bg-linear-to-br from-violet-600 via-violet-500 to-purple-400 text-white mb-5 px-5 py-4 min-h-60"
+>
+  <div class="px-4 py-12 sm:py-16">
+    <div class="text-white/70 text-sm mb-4">
+      <a routerLink="/" class="hover:text-white transition">Home</a>
+      <span> / </span>
+      <span class="text-white">Brands</span>
+    </div>
+    <div class="flex items-center gap-5">
+      <div
+        class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl ring-1 ring-white/30"
+      >
+        <i class="fa-solid fa-box-open text-3xl text-white"></i>
+      </div>
+      <div class="text-white">
+        <h2 class="text-5xl font-bold mb-2">Top Brands</h2>
+        <p class="opacity-80">Shop from your favorite brands</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mx-auto p-4">
+  <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-4">
+    @for (item of CategoriesList(); track item._id) {
+      <div
+        class="bg-gray-100 rounded-xl p-6 text-center shadow hover:shadow-lg transition-all duration-300 hover:scale-104 cursor-pointer group hover:text-primary"
+      >
+        <img
+          [src]="item.image"
+          [alt]="item.name"
+          class="mx-auto mb-3 size-50 w-auto object-contain rounded-xl"
+        />
+        <p class="font-medium mb-2">{{ item.name }}</p>
+        <button class="text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <!-- <i class="fa-square-arrow-up-right"></i> -->
+          View Subcategories
+        </button>
+      </div>
+    }
+  </div>
+</div>

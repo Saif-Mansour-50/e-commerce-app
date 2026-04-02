@@ -15,7 +15,7 @@ export class ShopComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
 
   productList = signal<Product[]>([]);
-  pageSize = signal<number>(0);
+  pageSize = signal<number>(5);
   currentPage = signal<number>(0);
   total = signal<number>(0);
 

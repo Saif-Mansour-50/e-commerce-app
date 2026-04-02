@@ -12,12 +12,7 @@ export const routes: Routes = [
     loadComponent: () => import('./features/shop/shop.component').then((c) => c.ShopComponent),
     title: 'shop page',
   },
-  {
-    path: 'categories',
-    loadComponent: () =>
-      import('./features/categories/categories.component').then((c) => c.CategoriesComponent),
-    title: 'categories page',
-  },
+
   {
     path: 'brands',
     loadComponent: () =>
@@ -31,6 +26,34 @@ export const routes: Routes = [
         (c) => c.BrandDetailsComponent,
       ),
     title: 'brands spacific ',
+  },
+  {
+    path: 'electronics',
+    loadComponent: () =>
+      import('./features/electronics/electronics.component').then((c) => c.ElectronicsComponent),
+    title: 'Electronics',
+  },
+  {
+    path: 'women-fashion',
+    loadComponent: () =>
+      import('./features/women-fashion/women-fashion.component').then(
+        (c) => c.WomenFashionComponent,
+      ),
+    title: "Women's Fashion",
+  },
+  {
+    path: 'men-fashion',
+    loadComponent: () =>
+      import('./features/men-fashion/men-fashion.component').then((c) => c.MenFashionComponent),
+    title: "Men's Fashion",
+  },
+  {
+    path: 'beauty-health',
+    loadComponent: () =>
+      import('./features/beauty-health/beauty-health.component').then(
+        (c) => c.BeautyHealthComponent,
+      ),
+    title: 'Beauty & Health',
   },
 
   {
@@ -62,6 +85,14 @@ export const routes: Routes = [
     path: 'allorders',
     loadComponent: () =>
       import('./features/orders/orders.component').then((c) => c.OrdersComponent),
+    title: 'orders page',
+  },
+  {
+    path: 'allCategories',
+    loadComponent: () =>
+      import('./features/all-categories/all-categories.component').then(
+        (c) => c.AllCategoriesComponent,
+      ),
     title: 'orders page',
   },
   {
