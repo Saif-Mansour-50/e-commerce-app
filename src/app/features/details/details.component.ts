@@ -2,6 +2,8 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../core/services/products.service';
 import { Product } from '../../core/models/product.interface';
+import { CartService } from '../../core/services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-details',
@@ -12,6 +14,8 @@ import { Product } from '../../core/models/product.interface';
 export class DetailsComponent implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly productsService = inject(ProductsService);
+  private readonly cartService = inject(CartService);
+  private readonly toastrService = inject(ToastrService);
 
   productDetails = signal<Product>({} as Product);
 
@@ -30,5 +34,27 @@ export class DetailsComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  addProduct(id: string): void {
+    if (localStorage.getItem('freshToken')) {
+      this.cartService.addProductToCart(id).subscribe({
+        next: (res) => {
+          console.log(res);
+
+          this.cartService.cartDetails.set(res.data);
+
+          this.toastrService.success(res.message, 'FreshCart', {
+            progressBar: true,
+            closeButton: true,
+          });
+        },
+      });
+    } else {
+      this.toastrService.warning('Login First', 'FreshCart', {
+        progressBar: true,
+        closeButton: true,
+      });
+    }
   }
 }
