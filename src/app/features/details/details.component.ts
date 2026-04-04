@@ -19,6 +19,8 @@ export class DetailsComponent implements OnInit {
 
   productDetails = signal<Product>({} as Product);
 
+  wishlist = signal<string[]>([]);
+
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((param) => {
       this.getProductDetails(param.get('id')!);
@@ -56,5 +58,27 @@ export class DetailsComponent implements OnInit {
         closeButton: true,
       });
     }
+  }
+
+  addToWishList(productId: string): void {
+    this.productsService.addProductToWishList(productId).subscribe({
+      next: (res) => {
+        console.log(res);
+
+        this.wishlist.set(res.data);
+
+        this.toastrService.success('Added to wishlist', 'FreshCart', {
+          progressBar: true,
+          closeButton: true,
+        });
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastrService.error('Failed to add to wishlist', 'FreshCart', {
+          progressBar: true,
+          closeButton: true,
+        });
+      },
+    });
   }
 }

@@ -46,13 +46,17 @@
         </div>
       </div>
 
-      <!-- Price -->
       <div class="font-semibold text-gray-800 md:text-left">
-        <span class="md:hidden text-gray-500 text-sm">Price: </span>
-        {{ product.price }}
+        @if (product.priceAfterDiscount && product.priceAfterDiscount < product.price) {
+          <div class="flex items-center gap-2">
+            <span class="font-medium text-emerald-600"> {{ product.priceAfterDiscount }} EGP</span>
+            <span class="text-sm text-gray-400 line-through"> {{ product.price }} EGP</span>
+          </div>
+        } @else {
+          <span class="text-lg font-medium text-slate-900"> {{ product.price }} EGP</span>
+        }
       </div>
 
-      <!-- Status -->
       <div>
         <span
           class="flex items-center gap-2 w-fit bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm"
