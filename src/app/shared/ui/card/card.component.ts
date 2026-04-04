@@ -1,3 +1,4 @@
+import { starRatingColor } from './../../../../../node_modules/angular-star-rating/lib/interfaces/star-rating-config.interface.d';
 import { Component, computed, inject, input, signal } from '@angular/core';
 import { Product } from '../../../core/models/product.interface';
 import { RouterLink } from '@angular/router';
@@ -64,5 +65,16 @@ export class CardComponent {
         });
       },
     });
+  }
+
+  calculateDiscountPercentage(): number {
+    const price = this.product().price;
+    const priceAfterDiscount = this.product().priceAfterDiscount;
+
+    if (priceAfterDiscount && price && priceAfterDiscount < price) {
+      const discount = ((price - priceAfterDiscount) / price) * 100;
+      return Math.round(discount); // تقريب النسبة لأقرب رقم صحيح
+    }
+    return 0;
   }
 }

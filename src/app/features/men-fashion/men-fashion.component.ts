@@ -1,6 +1,6 @@
 // men-fashion.component.ts
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'; // فقط ActivatedRoute, ليس Router
+import { ActivatedRoute, RouterLink } from '@angular/router'; // فقط ActivatedRoute, ليس Router
 import { Subscription } from 'rxjs';
 import { Product } from '../../core/models/product.interface';
 import { ProductsService } from '../../core/services/products.service';
@@ -8,7 +8,7 @@ import { CardComponent } from '../../shared/ui/card/card.component';
 
 @Component({
   selector: 'app-men-fashion',
-  imports: [CardComponent],
+  imports: [CardComponent, RouterLink],
   templateUrl: './men-fashion.component.html',
   styleUrl: './men-fashion.component.css',
 })

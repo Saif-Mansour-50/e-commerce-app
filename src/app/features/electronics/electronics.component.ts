@@ -3,10 +3,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Product } from '../../core/models/product.interface';
 import { ProductsService } from '../../core/services/products.service';
 import { CardComponent } from '../../shared/ui/card/card.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-electronics',
-  imports: [CardComponent],
+  imports: [CardComponent, RouterLink],
   templateUrl: './electronics.component.html',
   styleUrl: './electronics.component.css',
 })

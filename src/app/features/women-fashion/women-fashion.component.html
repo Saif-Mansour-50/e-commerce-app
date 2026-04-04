@@ -1,28 +1,45 @@
-<!-- men-fashion.component.html (ونفس الشيء للمكونات الأخرى) -->
-<div class="container mx-auto px-4 py-8">
-  <!-- عنوان الصفحة -->
-  <div class="mb-8">
-    <h1 class="text-2xl font-bold text-gray-800">
-      {{ categoryName() }}
-    </h1>
-    <p class="text-gray-600 mt-2">{{ productList().length }} products found</p>
+<section class="py-10 bg-white">
+  <div class="bg-primary mb-5 px-5 py-4 min-h-60 flex flex-col justify-center">
+    <div class="text-white/70 text-sm mb-4">
+      <a routerLink="/" class="hover:text-white transition">Home</a>
+      <span> / </span>
+      <span class="text-white">{{ categoryName() }}</span>
+    </div>
+    <div class="flex items-center gap-5">
+      <div
+        class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl ring-1 ring-white/30"
+      >
+        <i class="fa-solid fa-box-open text-3xl text-white"></i>
+      </div>
+      <div class="text-white">
+        <h2 class="text-5xl font-bold mb-2">{{ categoryName() }}</h2>
+        <p class="opacity-80">Browse products in {{ categoryName() }}</p>
+      </div>
+    </div>
   </div>
+  <div class="container mx-auto px-4 py-8">
+    <div class="mb-8">
+      <h1 class="text-2xl font-bold text-gray-800">
+        {{ categoryName() }}
+      </h1>
+      <p class="text-gray-600 mt-2">{{ productList().length }} products found</p>
+    </div>
 
-  <!-- حالة التحميل -->
-  @if (isLoading()) {
-    <div class="flex justify-center items-center py-12">
-      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
-    </div>
-  } @else {
-    <!-- عرض المنتجات -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      @for (product of productList(); track product._id) {
-        <app-card [product]="product" />
-      } @empty {
-        <div class="col-span-full text-center py-12">
-          <p class="text-gray-500 text-lg">No products found in this category</p>
-        </div>
-      }
-    </div>
-  }
-</div>
+    @if (isLoading()) {
+      <div class="flex justify-center items-center py-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+      </div>
+    } @else {
+      <!-- عرض المنتجات -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        @for (product of productList(); track product._id) {
+          <app-card [product]="product" />
+        } @empty {
+          <div class="col-span-full text-center py-12">
+            <p class="text-gray-500 text-lg">No products found in this category</p>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>
