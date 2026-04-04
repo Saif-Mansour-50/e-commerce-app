@@ -1,10 +1,11 @@
-import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
+import { Component, computed, inject, PLATFORM_ID, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FlowbiteService } from '../../core/services/flowbite.service';
 import { initFlowbite } from 'flowbite';
 import { AuthService } from '../../core/auth/services/auth.service';
 import { isPlatformBrowser } from '@angular/common';
 import { CartService } from '../../core/services/cart.service';
+import { User } from '../../core/models/user.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -21,6 +22,12 @@ export class NavbarComponent {
 
   count = computed(() => this.cartService.cartCount());
 
+  currentUser = signal<User | null>(null);
+
+  userName = computed(() => this.currentUser()?.name || 'Guest');
+  userEmail = computed(() => this.currentUser()?.email || '');
+  userRole = computed(() => this.currentUser()?.role || 'user');
+
   constructor(private flowbiteService: FlowbiteService) {}
 
   ngOnInit(): void {
@@ -29,6 +36,7 @@ export class NavbarComponent {
       if (localStorage.getItem('freshToken')) {
         this.authService.isLogged.set(true);
       }
+      this.loadUserFromStorage();
     }
 
     this.flowbiteService.loadFlowbite((flowbite) => {
@@ -36,6 +44,20 @@ export class NavbarComponent {
     });
   }
 
+  loadUserFromStorage(): void {
+    const userData = localStorage.getItem('freshUser');
+    if (userData) {
+      try {
+        const user = JSON.parse(userData) as User;
+        this.currentUser.set(user);
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+        this.currentUser.set(null);
+      }
+    } else {
+      this.currentUser.set(null);
+    }
+  }
   logOut() {
     this.authService.singOut();
   }
