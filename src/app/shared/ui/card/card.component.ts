@@ -73,7 +73,7 @@ export class CardComponent {
 
     if (priceAfterDiscount && price && priceAfterDiscount < price) {
       const discount = ((price - priceAfterDiscount) / price) * 100;
-      return Math.round(discount); // تقريب النسبة لأقرب رقم صحيح
+      return Math.round(discount);
     }
     return 0;
   }

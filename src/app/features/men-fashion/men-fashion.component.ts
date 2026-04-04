@@ -1,6 +1,5 @@
-// men-fashion.component.ts
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router'; // فقط ActivatedRoute, ليس Router
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from '../../core/models/product.interface';
 import { ProductsService } from '../../core/services/products.service';
@@ -23,10 +22,8 @@ export class MenFashionComponent implements OnInit, OnDestroy {
   private routeSubscription!: Subscription;
 
   ngOnInit(): void {
-    // لأن المسار مباشر بدون parameters، نعرض منتجات الرجال مباشرة
     this.loadMenProducts();
 
-    // إذا أردت الاستماع لأي parameters مستقبلية
     this.routeSubscription = this.route.params.subscribe((params) => {
       console.log('Params:', params);
     });
@@ -40,7 +37,6 @@ export class MenFashionComponent implements OnInit, OnDestroy {
 
   loadMenProducts(): void {
     this.isLoading.set(true);
-    // استخدام ID فئة Men's Fashion من الـ API
     const menCategoryId = '6439d5b90049ad0b52b90048';
 
     this.productsService.getProducts(menCategoryId).subscribe({

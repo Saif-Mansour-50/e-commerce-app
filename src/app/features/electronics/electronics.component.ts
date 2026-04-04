@@ -1,4 +1,3 @@
-// electronics.component.ts
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Product } from '../../core/models/product.interface';
 import { ProductsService } from '../../core/services/products.service';
@@ -24,8 +23,8 @@ export class ElectronicsComponent implements OnInit {
 
   loadElectronicsProducts(): void {
     this.isLoading.set(true);
-    // استبدل هذا بالـ ID الصحيح لفئة Electronics
-    const electronicsCategoryId = '6439d58a0049ad0b52b9003f'; // ضع الـ ID الحقيقي
+
+    const electronicsCategoryId = '6439d58a0049ad0b52b9003f';
 
     this.productsService.getProducts(electronicsCategoryId).subscribe({
       next: (res) => {

@@ -37,7 +37,7 @@ export class BeautyHealthComponent implements OnInit, OnDestroy {
 
   loadWomenProducts(): void {
     this.isLoading.set(true);
-    // استخدام ID فئة Women's Fashion من الـ API
+
     const womenCategoryId = '6439d58a0049ad0b52b9003fz';
 
     this.productsService.getProducts(womenCategoryId).subscribe({

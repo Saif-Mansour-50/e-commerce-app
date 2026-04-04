@@ -42,7 +42,6 @@ export class BrandDetailsComponent implements OnInit {
     });
   }
 
-  // ✅ عدل اسم الدالة واستخدم getProductsByBrand
   getProductsByBrand(brandId: string): void {
     this.productsService.getProductsByBrand(brandId).subscribe({
       next: (res) => {

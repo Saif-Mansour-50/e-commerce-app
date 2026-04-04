@@ -69,7 +69,6 @@
       <h2 class="text-2xl font-bold text-slate-900 text-center mb-2">Forgot Password?</h2>
       <p class="text-slate-500 text-center text-sm mb-8">No worries, we'll send you a reset code</p>
 
-      <!-- step design  -->
       <div class="flex items-center justify-center mb-10 px-4">
         <div
           class="w-10 h-10 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center shrink-0"
@@ -95,7 +94,6 @@
       </div>
 
       @if (step() === 1) {
-        <!-- step - 1  forgot password  -->
         <div>
           <form (submit)="submitEmail($event)" class="space-y-6">
             <div>
@@ -134,7 +132,6 @@
           </div>
         </div>
       } @else if (step() === 2) {
-        <!-- step - 2  verify  code  -->
         <div>
           <form (submit)="submitCode($event)" class="space-y-6">
             <div>
@@ -189,7 +186,6 @@
           </form>
         </div>
       } @else if (step() === 3) {
-        <!-- step 3 new password  -->
         <div>
           <form (submit)="submitPassword($event)" class="space-y-6">
             <div>

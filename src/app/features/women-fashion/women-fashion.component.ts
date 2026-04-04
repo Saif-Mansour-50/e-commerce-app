@@ -1,4 +1,3 @@
-// women-fashion.component.ts
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -38,7 +37,7 @@ export class WomenFashionComponent implements OnInit, OnDestroy {
 
   loadWomenProducts(): void {
     this.isLoading.set(true);
-    // استخدام ID فئة Women's Fashion من الـ API
+
     const womenCategoryId = '6439d58a0049ad0b52b9003f';
 
     this.productsService.getProducts(womenCategoryId).subscribe({

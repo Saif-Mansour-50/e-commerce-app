@@ -22,7 +22,6 @@
           <div
             class="flex flex-col sm:flex-row items-center gap-6 border border-gray-200 rounded-2xl p-5 bg-white shadow-sm"
           >
-            <!-- img  -->
             <div class="flex flex-col items-center gap-3 shrink-0">
               <div
                 class="w-32 h-32 bg-gray-50 rounded-xl flex items-center justify-center border border-gray-100 overflow-hidden"
@@ -170,10 +169,6 @@
             </div>
 
             <div class="space-y-4 text-base text-gray-600 mb-6">
-              <!-- <div class="flex justify-between items-center">
-                  <span>Subtotal</span>
-                  <span class="font-bold text-gray-900">596 EGP</span>
-                </div> -->
               <div class="flex justify-between items-center">
                 <span>Shipping</span>
                 <span class="font-bold text-[#138D46]">FREE</span>
@@ -187,12 +182,6 @@
                 <span class="text-sm font-semibold text-gray-500">EGP</span>
               </span>
             </div>
-
-            <!-- <button
-                class="w-full py-3.5 mb-3 border-2 border-dashed border-gray-200 text-gray-600 font-bold rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 focus:outline-hidden"
-              >
-                <i class="fa-solid fa-tag"></i> Apply Promo Code
-              </button> -->
 
             <button
               [routerLink]="['/checkout', cartService.cartDetails()._id]"
