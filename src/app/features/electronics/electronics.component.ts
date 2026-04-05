@@ -24,7 +24,7 @@ export class ElectronicsComponent implements OnInit {
   loadElectronicsProducts(): void {
     this.isLoading.set(true);
 
-    const electronicsCategoryId = '6439d58a0049ad0b52b9003f';
+    const electronicsCategoryId = '6439d2d167d9aa4ca970649f';
 
     this.productsService.getProducts(electronicsCategoryId).subscribe({
       next: (res) => {

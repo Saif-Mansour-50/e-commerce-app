@@ -1,3 +1,4 @@
+import { SettingsComponent } from './features/settings/settings.component';
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/guards/auth-guard';
 
@@ -53,6 +54,12 @@ export const routes: Routes = [
       import('./features/beauty-health/beauty-health.component').then(
         (c) => c.BeautyHealthComponent,
       ),
+    title: 'Beauty & Health',
+  },
+  {
+    path: 'settings',
+    loadComponent: () =>
+      import('./features/settings/settings.component').then((c) => c.SettingsComponent),
     title: 'Beauty & Health',
   },
 
