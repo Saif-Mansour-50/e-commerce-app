@@ -37,7 +37,7 @@ export class CheckoutComponent implements OnInit {
         this.cartService.creatCashOrder(this.cartId(), this.checkOut.value).subscribe({
           next: (res) => {
             if (res.status === 'success') {
-              this.router.navigate(['/cart']);
+              this.router.navigate(['/orders']);
             }
           },
         });

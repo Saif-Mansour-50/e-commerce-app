@@ -1,1 +1,82 @@
-<p>orders works!</p>
+<nav class="bg-white shadow-lg rounded-2xl">
+  <div class="px-6 py-8">
+    <ul class="flex flex-col space-y-2">
+      <li>
+        <a
+          routerLink="/"
+          class="flex items-center gap-3 px-5 py-2.5 rounded-xl text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-200 group"
+        >
+          <i
+            class="fas fa-home text-lg text-gray-400 group-hover:text-indigo-500 transition-colors w-5"
+          ></i>
+          <span class="font-medium">Home</span>
+        </a>
+      </li>
+
+      <li>
+        <a
+          routerLink="/shop"
+          class="flex items-center gap-3 px-5 py-2.5 rounded-xl text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-200 group"
+        >
+          <i
+            class="fa-solid fa-shop text-lg text-gray-400 group-hover:text-indigo-500 transition-colors w-5"
+          ></i>
+          <span class="font-medium">Shop</span>
+        </a>
+      </li>
+
+      <li>
+        <a
+          routerLink="/electronics"
+          class="flex items-center gap-3 px-5 py-2.5 rounded-xl text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-200 group"
+        >
+          <i
+            class="fa-solid fa-display text-lg text-gray-400 group-hover:text-indigo-500 transition-colors w-5"
+          ></i>
+          <span class="font-medium">Electronics</span>
+        </a>
+      </li>
+
+      <li>
+        <a
+          routerLink="/women-fashion"
+          class="flex items-center gap-3 px-5 py-2.5 rounded-xl text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-200 group"
+        >
+          <i
+            class="fa-solid fa-user-nurse text-lg text-gray-400 group-hover:text-indigo-500 transition-colors w-5"
+          ></i>
+          <span class="font-medium">Women Fashion</span>
+        </a>
+      </li>
+
+      <li>
+        <a
+          routerLink="/men-fashion"
+          class="flex items-center gap-3 px-5 py-2.5 rounded-xl text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-200 group"
+        >
+          <i
+            class="fa-solid fa-user-tie text-lg text-gray-400 group-hover:text-indigo-500 transition-colors w-5"
+          ></i>
+          <span class="font-medium">Men Fashion</span>
+        </a>
+      </li>
+
+      <li>
+        <a
+          routerLink="/cart"
+          class="flex items-center gap-3 px-5 py-2.5 rounded-xl text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-200 group relative"
+        >
+          <i
+            class="fas fa-shopping-cart text-lg text-gray-400 group-hover:text-indigo-500 transition-colors w-5"
+          ></i>
+          <span class="font-medium">Cart</span>
+          <span
+            class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold"
+          >
+            {{ cout() }}
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
