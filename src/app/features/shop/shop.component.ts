@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-shop',
-  imports: [CardComponent, NgxPaginationModule, RouterLink],
+  imports: [CardComponent, NgxPaginationModule],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css',
 })

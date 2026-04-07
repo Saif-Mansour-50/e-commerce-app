@@ -1,5 +1,5 @@
 import { starRatingColor } from './../../../../../node_modules/angular-star-rating/lib/interfaces/star-rating-config.interface.d';
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input, PipeTransform, signal } from '@angular/core';
 import { Product } from '../../../core/models/product.interface';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
@@ -52,6 +52,8 @@ export class CardComponent {
 
         this.wishlist.set(res.data);
 
+        this.cartService.wishlistCount.set(res.data.length);
+
         this.toastrService.success('Added to wishlist', 'FreshCart', {
           progressBar: true,
           closeButton: true,
@@ -77,4 +79,17 @@ export class CardComponent {
     }
     return 0;
   }
+
+  stars = computed(() => {
+    const rating = this.product().ratingsAverage;
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+    return {
+      full: Array(fullStars).fill(0),
+      half: hasHalfStar,
+      empty: Array(emptyStars).fill(0),
+    };
+  });
 }

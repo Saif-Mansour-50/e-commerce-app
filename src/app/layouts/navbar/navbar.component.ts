@@ -6,6 +6,7 @@ import { AuthService } from '../../core/auth/services/auth.service';
 import { isPlatformBrowser } from '@angular/common';
 import { CartService } from '../../core/services/cart.service';
 import { User } from '../../core/models/user.interface';
+import { ProductsService } from '../../core/services/products.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,11 +17,13 @@ import { User } from '../../core/models/user.interface';
 export class NavbarComponent {
   private readonly authService = inject(AuthService);
   protected readonly cartService = inject(CartService);
+  protected readonly productsService = inject(ProductsService);
   private readonly pLATFORM_ID = inject(PLATFORM_ID);
 
   isLogged = computed(() => this.authService.isLogged());
 
   count = computed(() => this.cartService.cartCount());
+  wishlistCount = computed(() => this.cartService.wishlistCount());
 
   currentUser = signal<User | null>(null);
 
@@ -37,6 +40,7 @@ export class NavbarComponent {
         this.authService.isLogged.set(true);
       }
       this.loadUserFromStorage();
+      this.getwishlistCount();
     }
 
     this.flowbiteService.loadFlowbite((flowbite) => {
@@ -66,6 +70,14 @@ export class NavbarComponent {
     this.cartService.getCartData().subscribe({
       next: (res) => {
         this.cartService.cartDetails.set(res.data);
+      },
+    });
+  }
+
+  getwishlistCount(): void {
+    this.productsService.getProductToWishList().subscribe({
+      next: (res) => {
+        this.cartService.wishlistCount.set(res.data.length);
       },
     });
   }

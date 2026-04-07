@@ -52,17 +52,16 @@
       {{ product().title.split(' ').slice(0, 2).join(' ') }}
     </h3>
 
-    <div class="flex items-center gap-1">
-      <div class="flex text-yellow-400 text-xs gap-0.5">
+    <div class="flex text-yellow-400 text-xs gap-0.5">
+      @for (star of stars().full; track $index) {
         <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
+      }
+      @if (stars().half) {
+        <i class="fas fa-star-half-alt"></i>
+      }
+      @for (star of stars().empty; track $index) {
         <i class="far fa-star text-gray-300"></i>
-      </div>
-      <span class="text-xs text-gray-400 font-medium">
-        {{ product().ratingsAverage }} ( {{ product().ratingsQuantity }} )</span
-      >
+      }
     </div>
 
     <div class="flex items-center justify-between pt-2">

@@ -20,6 +20,7 @@ export class WishlistComponent implements OnInit {
 
   wishlistProducts = signal<Product[]>([]);
   wishlistcount = signal<number>(0);
+  wishlistHeart = signal<string[]>([]);
 
   count = computed(() => this.cartService.cartCount());
 
@@ -34,7 +35,7 @@ export class WishlistComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.wishlistProducts.set(res.data);
-        this.wishlistcount.set(res.count);
+        this.wishlistcount.set(res.data.length);
       },
       error: (err) => {
         console.log(err);
@@ -50,6 +51,8 @@ export class WishlistComponent implements OnInit {
 
         const newCount = res.data.length;
         this.wishlistcount.set(newCount);
+
+        this.cartService.wishlistCount.set(newCount);
 
         this.wishlistProducts.update((list) => list.filter((p) => p._id !== productId));
 

@@ -92,16 +92,21 @@
       <button
         routerLink="/wishlist"
         routerLinkActive="text-primary"
-        class="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-all hover:bg-gray-100 hover:text-emerald-600"
+        class="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-all hover:bg-gray-100 hover:text-red-600"
       >
-        <i class="far fa-heart text-xl"></i>
+        <i class="far fa-heart text-2xl"></i>
+        <span
+          class="absolute right-1 top-1 rounded-full border-2 border-white bg-red-600 px-1.5 text-2xs font-bold text-white"
+        >
+          {{ wishlistCount() }}
+        </span>
       </button>
       <button
         routerLink="/cart"
         routerLinkActive="text-primary"
         class="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-all hover:bg-gray-100 hover:text-emerald-600"
       >
-        <i class="fas fa-shopping-cart text-xl"></i>
+        <i class="fas fa-shopping-cart text-2xl"></i>
         <span
           class="absolute right-1 top-1 rounded-full border-2 border-white bg-emerald-600 px-1.5 text-2xs font-bold text-white"
         >

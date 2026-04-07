@@ -23,6 +23,8 @@ export class CartService {
     this.cartDetails().products ? this.cartDetails().products.length : 0,
   );
 
+  wishlistCount = signal<number>(0);
+
   creatCashOrder(cartId: string, data: ShippingAddress) {
     const payload = this.transformCashOrderPayload(data);
 
