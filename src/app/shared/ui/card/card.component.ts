@@ -1,5 +1,4 @@
-import { starRatingColor } from './../../../../../node_modules/angular-star-rating/lib/interfaces/star-rating-config.interface.d';
-import { Component, computed, inject, input, PipeTransform, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { Product } from '../../../core/models/product.interface';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
