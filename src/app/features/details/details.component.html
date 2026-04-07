@@ -28,14 +28,19 @@
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900">
               {{ productDetails().title }}
             </h1>
-            <div class="flex items-center gap-2">
-              <div class="flex text-yellow-400 text-sm gap-0.5">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i
-                ><i class="fas fa-star"></i><i class="far fa-star text-gray-300"></i>
-              </div>
-              <span class="text-sm text-gray-500 font-medium"
-                >{{ productDetails().ratingsAverage }}
-              </span>
+
+            @let stars = getStars(productDetails().ratingsAverage);
+
+            <div class="flex text-yellow-400 text-xs gap-0.5">
+              @for (star of stars.full; track $index) {
+                <i class="fas fa-star"></i>
+              }
+              @if (stars.half) {
+                <i class="fas fa-star-half-alt"></i>
+              }
+              @for (star of stars.empty; track $index) {
+                <i class="far fa-star text-gray-300"></i>
+              }
             </div>
 
             <p class="text-2xl font-bold text-slate-900">{{ productDetails().price }} EGP</p>

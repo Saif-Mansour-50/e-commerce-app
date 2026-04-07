@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductsService } from '../../core/services/products.service';
 import { Product } from '../../core/models/product.interface';
 import { CartService } from '../../core/services/cart.service';
@@ -18,12 +18,21 @@ export class DetailsComponent implements OnInit {
   private readonly toastrService = inject(ToastrService);
 
   productDetails = signal<Product>({} as Product);
-
   wishlist = signal<string[]>([]);
 
   ngOnInit(): void {
+    this.loadWishlist();
     this.activatedRoute.paramMap.subscribe((param) => {
       this.getProductDetails(param.get('id')!);
+    });
+  }
+
+  loadWishlist(): void {
+    this.productsService.getProductToWishList().subscribe({
+      next: (res) => {
+        this.wishlist.set(res.data);
+      },
+      error: (err) => console.error('Error:', err),
     });
   }
 
@@ -43,9 +52,7 @@ export class DetailsComponent implements OnInit {
       this.cartService.addProductToCart(id).subscribe({
         next: (res) => {
           console.log(res);
-
           this.cartService.cartDetails.set(res.data);
-
           this.toastrService.success(res.message, 'FreshCart', {
             progressBar: true,
             closeButton: true,
@@ -64,9 +71,7 @@ export class DetailsComponent implements OnInit {
     this.productsService.addProductToWishList(productId).subscribe({
       next: (res) => {
         console.log(res);
-
         this.wishlist.set(res.data);
-
         this.toastrService.success('Added to wishlist', 'FreshCart', {
           progressBar: true,
           closeButton: true,
@@ -80,5 +85,16 @@ export class DetailsComponent implements OnInit {
         });
       },
     });
+  }
+
+  getStars(rating: number) {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    return {
+      full: Array(fullStars).fill(0),
+      half: hasHalfStar,
+      empty: Array(emptyStars).fill(0),
+    };
   }
 }

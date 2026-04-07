@@ -47,6 +47,17 @@
 
             <div class="absolute top-2 right-2 flex flex-col gap-2">
               <button
+                (click)="addToWishList(product._id)"
+                class="w-10 h-10 bg-white shadow-sm border border-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-emerald-600 hover:text-white transition-all"
+              >
+                <i
+                  class="fa-heart text-lg transition-all"
+                  [class.far]="!wishlist().includes(product._id)"
+                  [class.fas]="wishlist().includes(product._id)"
+                  [class.text-red-500]="wishlist().includes(product._id)"
+                ></i>
+              </button>
+              <button
                 class="w-10 h-10 bg-white shadow-sm border border-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-emerald-600 hover:text-white transition-all"
               >
                 <i class="fas fa-sync-alt"></i>
@@ -71,11 +82,18 @@
               {{ product.title }}
             </h3>
 
-            <div class="flex items-center gap-1">
-              <div class="flex text-yellow-400 text-xs gap-0.5"></div>
-              <span class="text-xs text-gray-400 font-medium">
-                {{ product.ratingsAverage }} ({{ product.ratingsQuantity }})
-              </span>
+            @let stars = getStars(product.ratingsAverage);
+
+            <div class="flex text-yellow-400 text-xs gap-0.5">
+              @for (star of stars.full; track $index) {
+                <i class="fas fa-star"></i>
+              }
+              @if (stars.half) {
+                <i class="fas fa-star-half-alt"></i>
+              }
+              @for (star of stars.empty; track $index) {
+                <i class="far fa-star text-gray-300"></i>
+              }
             </div>
 
             <div class="flex items-center justify-between pt-2">
