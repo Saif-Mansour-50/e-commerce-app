@@ -3,12 +3,12 @@ import { RouterLink } from '@angular/router';
 import { CartService } from '../../core/services/cart.service';
 
 @Component({
-  selector: 'app-orders',
-  imports: [RouterLink],
-  templateUrl: './orders.component.html',
-  styleUrl: './orders.component.css',
+  selector: 'app-allorders',
+  imports: [],
+  templateUrl: './allorders.component.html',
+  styleUrl: './allorders.component.css',
 })
-export class OrdersComponent {
+export class AllordersComponent {
   protected readonly cartService = inject(CartService);
 
   cout = this.cartService.cartCount;

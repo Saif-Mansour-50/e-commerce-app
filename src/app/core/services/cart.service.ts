@@ -72,4 +72,16 @@ export class CartService {
   clearCart(): Observable<any> {
     return this.httpClient.delete(environment.baseUrl + `/api/v2/cart`);
   }
+
+  getUserAddresses(): Observable<any> {
+    return this.httpClient.get(environment.baseUrl + `/api/v1/addresses`);
+  }
+
+  addAddress(addressData: any): Observable<any> {
+    return this.httpClient.post(environment.baseUrl + `/api/v1/addresses`, addressData);
+  }
+
+  removeAddress(addressId: string): Observable<any> {
+    return this.httpClient.delete(environment.baseUrl + `/api/v1/addresses/${addressId}`);
+  }
 }

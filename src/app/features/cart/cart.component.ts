@@ -31,6 +31,7 @@ export class CartComponent implements OnInit {
     this.cartService.removeProductItem(id).subscribe({
       next: (res) => {
         this.cartService.cartDetails.set(res.data);
+        console.log(res);
       },
     });
   }
