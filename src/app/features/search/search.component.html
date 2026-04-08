@@ -1,0 +1,145 @@
+<div class="container mx-auto">
+  <div class="grid grid-cols-12 gap-6">
+    <aside class="col-span-12 lg:col-span-3">
+      <div class="bg-white border border-gray-200 rounded-xl p-5 space-y-6">
+        <div>
+          <h3 class="font-semibold text-gray-800 mb-3">Categories</h3>
+
+          <div class="max-h-48 overflow-y-auto space-y-2 pr-1">
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" class="accent-green-600" />
+              Music
+            </label>
+
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" class="accent-green-600" />
+              Men's Fashion
+            </label>
+
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" class="accent-green-600" />
+              Women's Fashion
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-gray-800 mb-3">Price Range</h3>
+
+          <div class="flex gap-2 mb-3">
+            <input
+              type="number"
+              placeholder="Min (EGP)"
+              class="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:border-green-500"
+            />
+
+            <input
+              type="number"
+              placeholder="Max (EGP)"
+              class="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:border-green-500"
+            />
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <button class="px-3 py-1 text-xs border rounded-full hover:bg-gray-100">
+              Under 500
+            </button>
+
+            <button class="px-3 py-1 text-xs border rounded-full hover:bg-gray-100">
+              Under 5K
+            </button>
+
+            <button class="px-3 py-1 text-xs border rounded-full hover:bg-gray-100">
+              Under 10K
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-gray-800 mb-3">Brands</h3>
+
+          <div class="max-h-48 overflow-y-auto space-y-2 pr-1">
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" class="accent-green-600" />
+              Canon
+            </label>
+
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" class="accent-green-600" />
+              Dell
+            </label>
+
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" class="accent-green-600" />
+              Lenovo
+            </label>
+
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" class="accent-green-600" />
+              SONY
+            </label>
+
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" class="accent-green-600" />
+              Infinix
+            </label>
+
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" class="accent-green-600" />
+              Realme
+            </label>
+
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" class="accent-green-600" />
+              HONOR
+            </label>
+
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" class="accent-green-600" />
+              Nokia
+            </label>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="col-span-12 lg:col-span-9">
+      <div class="mt-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        @for (
+          product of productList()
+            | paginate
+              : {
+                  itemsPerPage: itemsPerPage(),
+                  currentPage: currentPage(),
+                  totalItems: totalItems(),
+                };
+          track product._id
+        ) {
+          <app-card [product]="product" />
+        } @empty {
+          <div class="col-span-full text-center py-10">
+            <p class="text-gray-500">No products found</p>
+          </div>
+        }
+      </div>
+
+      @if (totalItems() > 0) {
+        <div class="flex justify-center mt-8">
+          <pagination-controls
+            (pageChange)="onPageChange($event)"
+            [maxSize]="5"
+            [directionLinks]="true"
+            [autoHide]="true"
+            [responsive]="true"
+            previousLabel="Previous"
+            nextLabel="Next"
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page"
+          >
+          </pagination-controls>
+        </div>
+      }
+    </main>
+  </div>
+</div>

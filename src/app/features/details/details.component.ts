@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductsService } from '../../core/services/products.service';
 import { Product } from '../../core/models/product.interface';
@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   imports: [],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DetailsComponent implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
@@ -40,6 +41,7 @@ export class DetailsComponent implements OnInit {
     this.productsService.getSpecificProduct(id).subscribe({
       next: (res) => {
         this.productDetails.set(res.data);
+        console.log(res);
       },
       error: (err) => {
         console.log(err);

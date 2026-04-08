@@ -5,42 +5,47 @@ import { CardComponent } from '../../shared/ui/card/card.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
-  selector: 'app-shop',
+  selector: 'app-search',
   imports: [CardComponent, NgxPaginationModule],
-  templateUrl: './shop.component.html',
-  styleUrl: './shop.component.css',
+  templateUrl: './search.component.html',
+  styleUrl: './search.component.css',
 })
-export class ShopComponent implements OnInit {
+export class SearchComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
 
   productList = signal<Product[]>([]);
-  pageSize = signal<number>(5);
-  currentPage = signal<number>(0);
-  total = signal<number>(0);
+  itemsPerPage = signal<number>(12);
+  currentPage = signal<number>(1);
+  totalItems = signal<number>(0);
 
   ngOnInit(): void {
     this.getProductData();
   }
 
   getProductData(page: number = 1): void {
-    this.productsService.getAllProducts(page).subscribe({
+    this.productsService.getAllProducts(page, this.itemsPerPage()).subscribe({
       next: (res) => {
+        console.log('API Response search:', res);
+
         this.productList.set(res.data || []);
 
         if (res.metadata) {
-          this.pageSize.set(res.metadata.limit);
           this.currentPage.set(res.metadata.currentPage);
-          this.total.set(res.results || res.metadata.total || 0);
+          this.itemsPerPage.set(res.metadata.limit);
+          this.totalItems.set(res.results);
         } else {
           console.warn('Metadata not found in response');
-          this.total.set(res.results || 0);
+          this.totalItems.set(res.results || 0);
         }
+      },
+      error: (error) => {
+        console.error('Error fetching products:', error);
       },
     });
   }
 
-  onPageChange(num: number): void {
-    this.getProductData(num);
+  onPageChange(page: number): void {
+    this.getProductData(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

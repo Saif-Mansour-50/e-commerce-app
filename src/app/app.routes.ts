@@ -101,6 +101,12 @@ export const routes: Routes = [
     title: 'orders page',
   },
   {
+    path: 'search',
+    loadComponent: () =>
+      import('./features/search/search.component').then((c) => c.SearchComponent),
+    title: 'orders page',
+  },
+  {
     path: 'allCategories',
     loadComponent: () =>
       import('./features/all-categories/all-categories.component').then(

@@ -23,7 +23,7 @@ interface Address {
 
 @Component({
   selector: 'app-checkout',
-  imports: [RouterLink, ReactiveFormsModule, NgClass],
+  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',
 })
@@ -33,14 +33,12 @@ export class CheckoutComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
-  // نموذج الدفع
   checkOut: FormGroup = this.fb.group({
     details: ['', Validators.required],
     phone: ['', Validators.required],
     city: ['', Validators.required],
   });
 
-  // نموذج إضافة عنوان جديد
   addressForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
     details: ['', Validators.required],
@@ -53,7 +51,6 @@ export class CheckoutComponent implements OnInit {
   products = signal<CartItem[]>([]);
   totalPrice = signal<number>(0);
 
-  // Signals للعناوين
   addresses = signal<Address[]>([]);
   showAddressForm = signal<boolean>(false);
   selectedAddressId = signal<string>('');

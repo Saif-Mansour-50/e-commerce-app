@@ -95,6 +95,16 @@ export class BrandDetailsComponent implements OnInit {
       },
     });
   }
+  calculateDiscountPercentage(): number {
+    const price = this.product().price;
+    const priceAfterDiscount = this.product().priceAfterDiscount;
+
+    if (priceAfterDiscount && price && priceAfterDiscount < price) {
+      const discount = ((price - priceAfterDiscount) / price) * 100;
+      return Math.round(discount);
+    }
+    return 0;
+  }
 
   getStars(rating: number) {
     const fullStars = Math.floor(rating);

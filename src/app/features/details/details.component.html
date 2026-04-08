@@ -4,11 +4,36 @@
       <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-12">
         <div class="space-y-4">
           <div class="bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
-            <img
-              [src]="productDetails().imageCover"
-              [alt]="productDetails().title"
-              class="w-full object-cover"
-            />
+            <swiper-container
+              style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+              class="mySwiper"
+              thumbs-swiper=".mySwiper2"
+              space-between="10"
+              navigation="true"
+            >
+              <swiper-slide>
+                <img [src]="productDetails().imageCover" />
+              </swiper-slide>
+              @for (img of productDetails().images; track $index) {
+                <swiper-slide>
+                  <img [src]="img" />
+                </swiper-slide>
+              }
+            </swiper-container>
+
+            <swiper-container
+              class="mySwiper2"
+              space-between="10"
+              slides-per-view="4"
+              free-mode="true"
+              watch-slides-progress="true"
+            >
+              @for (img of productDetails().images; track $index) {
+                <swiper-slide>
+                  <img [src]="img" />
+                </swiper-slide>
+              }
+            </swiper-container>
           </div>
         </div>
 

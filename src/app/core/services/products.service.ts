@@ -15,6 +15,10 @@ export class ProductsService {
     );
   }
 
+  getProductsWithFilters(params: any): Observable<any> {
+    return this.httpClient.get(environment.baseUrl + '/api/v1/products', { params });
+  }
+
   getProducts(categoryId: string): Observable<any> {
     return this.httpClient.get(environment.baseUrl + `/api/v1/products?category[in]=${categoryId}`);
   }
