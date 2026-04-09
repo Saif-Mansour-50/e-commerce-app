@@ -6,50 +6,56 @@
           <h3 class="font-semibold text-gray-800 mb-3">Categories</h3>
 
           <div class="max-h-48 overflow-y-auto space-y-2 pr-1">
-            <label class="flex items-center gap-2 text-sm">
-              <input type="checkbox" class="accent-green-600" />
-              Music
-            </label>
-
-            <label class="flex items-center gap-2 text-sm">
-              <input type="checkbox" class="accent-green-600" />
-              Men's Fashion
-            </label>
-
-            <label class="flex items-center gap-2 text-sm">
-              <input type="checkbox" class="accent-green-600" />
-              Women's Fashion
-            </label>
+            @for (cat of categories(); track cat._id) {
+              <label class="flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  [value]="cat._id"
+                  (change)="onCategoryChange(cat._id, $event)"
+                  [checked]="selectedCategories().includes(cat._id)"
+                  class="accent-green-600"
+                />
+                {{ cat.name }}
+              </label>
+            }
           </div>
         </div>
 
         <div>
           <h3 class="font-semibold text-gray-800 mb-3">Price Range</h3>
-
           <div class="flex gap-2 mb-3">
             <input
               type="number"
               placeholder="Min (EGP)"
+              [value]="priceMin() ?? ''"
+              (input)="onPriceMinChange($any($event.target).value)"
               class="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:border-green-500"
             />
-
             <input
               type="number"
               placeholder="Max (EGP)"
+              [value]="priceMax() ?? ''"
+              (input)="onPriceMaxChange($any($event.target).value)"
               class="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:border-green-500"
             />
           </div>
-
           <div class="flex flex-wrap gap-2">
-            <button class="px-3 py-1 text-xs border rounded-full hover:bg-gray-100">
+            <button
+              (click)="setPriceRange(0, 500)"
+              class="px-3 py-1 text-xs border rounded-full hover:bg-gray-100"
+            >
               Under 500
             </button>
-
-            <button class="px-3 py-1 text-xs border rounded-full hover:bg-gray-100">
+            <button
+              (click)="setPriceRange(0, 5000)"
+              class="px-3 py-1 text-xs border rounded-full hover:bg-gray-100"
+            >
               Under 5K
             </button>
-
-            <button class="px-3 py-1 text-xs border rounded-full hover:bg-gray-100">
+            <button
+              (click)="setPriceRange(0, 10000)"
+              class="px-3 py-1 text-xs border rounded-full hover:bg-gray-100"
+            >
               Under 10K
             </button>
           </div>
@@ -57,48 +63,24 @@
 
         <div>
           <h3 class="font-semibold text-gray-800 mb-3">Brands</h3>
-
           <div class="max-h-48 overflow-y-auto space-y-2 pr-1">
-            <label class="flex items-center gap-2 text-sm">
-              <input type="checkbox" class="accent-green-600" />
-              Canon
-            </label>
-
-            <label class="flex items-center gap-2 text-sm">
-              <input type="checkbox" class="accent-green-600" />
-              Dell
-            </label>
-
-            <label class="flex items-center gap-2 text-sm">
-              <input type="checkbox" class="accent-green-600" />
-              Lenovo
-            </label>
-
-            <label class="flex items-center gap-2 text-sm">
-              <input type="checkbox" class="accent-green-600" />
-              SONY
-            </label>
-
-            <label class="flex items-center gap-2 text-sm">
-              <input type="checkbox" class="accent-green-600" />
-              Infinix
-            </label>
-
-            <label class="flex items-center gap-2 text-sm">
-              <input type="checkbox" class="accent-green-600" />
-              Realme
-            </label>
-
-            <label class="flex items-center gap-2 text-sm">
-              <input type="checkbox" class="accent-green-600" />
-              HONOR
-            </label>
-
-            <label class="flex items-center gap-2 text-sm">
-              <input type="checkbox" class="accent-green-600" />
-              Nokia
-            </label>
+            @for (brand of brands(); track brand._id) {
+              <label class="flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  name="brand"
+                  [value]="brand._id"
+                  (change)="onBrandChange(brand._id)"
+                  [checked]="selectedBrand() === brand._id"
+                  class="accent-green-600"
+                />
+                {{ brand.name }}
+              </label>
+            }
           </div>
+          @if (selectedBrand()) {
+            <button (click)="clearBrand()" class="mt-2 text-xs text-red-500">Clear brand</button>
+          }
         </div>
       </div>
     </aside>
