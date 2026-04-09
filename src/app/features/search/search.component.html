@@ -67,7 +67,7 @@
             @for (brand of brands(); track brand._id) {
               <label class="flex items-center gap-2 text-sm">
                 <input
-                  type="checkbox"
+                  type="radio"
                   name="brand"
                   [value]="brand._id"
                   (change)="onBrandChange(brand._id)"
@@ -105,7 +105,17 @@
       </div>
 
       <div class="mt-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-        @for (product of productList(); track product._id) {
+        @for (
+          product of productList()
+            | paginate
+              : {
+                  id: 'pageId',
+                  itemsPerPage: itemsPerPage(),
+                  currentPage: currentPage(),
+                  totalItems: totalItems(),
+                };
+          track product._id
+        ) {
           <app-card [product]="product" />
         } @empty {
           <div class="col-span-full text-center py-10">
@@ -123,6 +133,7 @@
       @if (totalItems() > 0) {
         <div class="flex justify-center mt-8">
           <pagination-controls
+            id="pageId"
             (pageChange)="onPageChange($event)"
             [maxSize]="5"
             [directionLinks]="true"
@@ -130,6 +141,9 @@
             [responsive]="true"
             previousLabel="Previous"
             nextLabel="Next"
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page"
           >
           </pagination-controls>
         </div>
