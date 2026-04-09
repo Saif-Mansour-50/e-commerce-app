@@ -1,4 +1,4 @@
-<div class="container mx-auto">
+<div class="container mx-auto py-6">
   <div class="grid grid-cols-12 gap-6">
     <aside class="col-span-12 lg:col-span-3">
       <div class="bg-white border border-gray-200 rounded-xl p-5 space-y-6">
@@ -104,21 +104,36 @@
     </aside>
 
     <main class="col-span-12 lg:col-span-9">
+      <div class="relative">
+        <input
+          type="text"
+          (input)="searchByKeyWord($event)"
+          placeholder="Search for products..."
+          class="w-full rounded-full border border-gray-200 bg-gray-50 px-6 py-2 pr-12 outline-none transition-all focus:border-emerald-500"
+          #searchInput
+        />
+        @if (searchKeyword()) {
+          <button
+            (click)="clearSearch(searchInput)"
+            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+          >
+            ✕
+          </button>
+        }
+      </div>
+
       <div class="mt-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-        @for (
-          product of productList()
-            | paginate
-              : {
-                  itemsPerPage: itemsPerPage(),
-                  currentPage: currentPage(),
-                  totalItems: totalItems(),
-                };
-          track product._id
-        ) {
+        @for (product of productList(); track product._id) {
           <app-card [product]="product" />
         } @empty {
           <div class="col-span-full text-center py-10">
-            <p class="text-gray-500">No products found</p>
+            <p class="text-gray-500">
+              @if (searchKeyword()) {
+                No products found matching "{{ searchKeyword() }}"
+              } @else {
+                No products found
+              }
+            </p>
           </div>
         }
       </div>
@@ -133,9 +148,6 @@
             [responsive]="true"
             previousLabel="Previous"
             nextLabel="Next"
-            screenReaderPaginationLabel="Pagination"
-            screenReaderPageLabel="page"
-            screenReaderCurrentLabel="You're on page"
           >
           </pagination-controls>
         </div>

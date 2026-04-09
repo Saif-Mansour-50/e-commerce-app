@@ -9,10 +9,12 @@ import { environment } from '../../../environments/environment';
 export class ProductsService {
   private readonly httpClient = inject(HttpClient);
 
-  getAllProducts(pageNum: number = 1, limit: number = 40): Observable<any> {
-    return this.httpClient.get(
-      environment.baseUrl + `/api/v1/products?page=${pageNum}&limit=${limit}`,
-    );
+  getAllProducts(pageNum: number = 1, limit: number = 40, keyword?: string): Observable<any> {
+    let url = environment.baseUrl + `/api/v1/products?page=${pageNum}&limit=${limit}`;
+    if (keyword && keyword.trim()) {
+      url += `&keyword=${encodeURIComponent(keyword.trim())}`;
+    }
+    return this.httpClient.get(url);
   }
 
   getProductsWithFilters(params: any): Observable<any> {
