@@ -11,7 +11,6 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../core/auth/services/auth.service';
 
-// Custom validator to check if password and confirm password match
 function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
   const password = control.get('password')?.value;
   const rePassword = control.get('rePassword')?.value;
@@ -37,7 +36,6 @@ export class SettingsComponent {
   isHiddenNew = signal<boolean>(true);
   isHiddenConfirm = signal<boolean>(true);
 
-  // Create FormGroup correctly
   changePasswordForm: FormGroup = this.fb.group(
     {
       currentPassword: [
@@ -57,9 +55,8 @@ export class SettingsComponent {
       rePassword: ['', [Validators.required]],
     },
     { validators: passwordMatchValidator },
-  ); // Add validator at FormGroup level
+  );
 
-  // Signals for profile data
   profile = signal({
     fullName: 'saif',
     email: 'saif@gmail.com',
@@ -71,7 +68,6 @@ export class SettingsComponent {
     role: 'Administrator',
   });
 
-  // UI state signals
   isSavingProfile = signal<boolean>(false);
   isChangingPassword = signal<boolean>(false);
   profileSaved = signal<boolean>(false);
@@ -89,7 +85,6 @@ export class SettingsComponent {
     return this.changePasswordForm.get('rePassword');
   }
 
-  // Validate password strength
   validatePasswordStrength(password: string): void {
     if (!password) {
       this.passwordStrength.set('');
@@ -117,7 +112,6 @@ export class SettingsComponent {
   saveProfile(): void {
     this.isSavingProfile.set(true);
 
-    // Simulate API call
     setTimeout(() => {
       console.log('Profile saved:', this.profile());
       this.isSavingProfile.set(false);
@@ -127,9 +121,7 @@ export class SettingsComponent {
   }
 
   changePassword(): void {
-    // Check if form is valid
     if (this.changePasswordForm.invalid) {
-      // Display appropriate errors
       if (this.changePasswordForm.hasError('passwordMismatch')) {
         this.passwordError.set('New password and confirmation do not match');
       } else if (this.password?.hasError('pattern')) {

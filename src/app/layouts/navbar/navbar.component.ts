@@ -1,4 +1,12 @@
-import { Component, computed, inject, PLATFORM_ID, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  PLATFORM_ID,
+  signal,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FlowbiteService } from '../../core/services/flowbite.service';
 import { initFlowbite } from 'flowbite';
@@ -7,6 +15,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { CartService } from '../../core/services/cart.service';
 import { User } from '../../core/models/user.interface';
 import { ProductsService } from '../../core/services/products.service';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-navbar',
@@ -16,9 +26,12 @@ import { ProductsService } from '../../core/services/products.service';
 })
 export class NavbarComponent {
   private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
   protected readonly cartService = inject(CartService);
   protected readonly productsService = inject(ProductsService);
   private readonly pLATFORM_ID = inject(PLATFORM_ID);
+
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 
   isLogged = computed(() => this.authService.isLogged());
 
@@ -26,6 +39,7 @@ export class NavbarComponent {
   wishlistCount = computed(() => this.cartService.wishlistCount());
 
   currentUser = signal<User | null>(null);
+  searchValue = signal<string>('');
 
   userName = computed(() => this.currentUser()?.name || 'Guest');
   userEmail = computed(() => this.currentUser()?.email || '');
@@ -80,5 +94,21 @@ export class NavbarComponent {
         this.cartService.wishlistCount.set(res.data.length);
       },
     });
+  }
+
+  onSearch() {
+    const keyword = this.searchInput.nativeElement.value.trim();
+    if (keyword) {
+      this.router.navigate(['/search'], {
+        queryParams: { keyword: keyword },
+      });
+    } else {
+      this.router.navigate(['/search']);
+    }
+  }
+
+  onEnter(event: Event) {
+    event.preventDefault();
+    this.onSearch();
   }
 }

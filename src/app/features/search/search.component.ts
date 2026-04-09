@@ -1,5 +1,13 @@
-// search.component.ts
-import { Component, inject, OnInit, signal, effect } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  effect,
+  AfterViewInit,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { ProductsService } from '../../core/services/products.service';
 import { CategoriesService } from '../../core/services/categories.service';
 import { BrandsService } from '../../core/services/brands.service';
@@ -25,12 +33,14 @@ interface Brand {
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, AfterViewInit {
   private productsService = inject(ProductsService);
   private categoriesService = inject(CategoriesService);
   private brandsService = inject(BrandsService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+
+  @ViewChild('searchInput') searchInputRef!: ElementRef<HTMLInputElement>;
 
   allProducts = signal<Product[]>([]);
   productList = signal<Product[]>([]);
@@ -75,6 +85,12 @@ export class SearchComponent implements OnInit {
       this.priceMax.set(priceLte);
       this.currentPage.set(page);
 
+      if (this.searchInputRef) {
+        this.searchInputRef.nativeElement.value = keyword;
+      }
+
+      this.searchSubject.next(keyword);
+
       this.applyFilters();
     });
 
@@ -84,6 +100,12 @@ export class SearchComponent implements OnInit {
 
       this.updateUrlFilters();
     });
+  }
+
+  ngAfterViewInit() {
+    if (this.searchKeyword() && this.searchInputRef) {
+      this.searchInputRef.nativeElement.value = this.searchKeyword();
+    }
   }
 
   loadCategoriesAndBrands() {
@@ -196,7 +218,6 @@ export class SearchComponent implements OnInit {
       this.selectedCategories.set(current.filter((id) => id !== categoryId));
     }
     this.currentPage.set(1);
-    // effect سيحدث URL تلقائياً
   }
 
   onBrandChange(brandId: string) {
