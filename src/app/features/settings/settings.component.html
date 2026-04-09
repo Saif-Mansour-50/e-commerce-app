@@ -10,288 +10,249 @@
     </p>
   </div>
 
-  <div class="flex flex-col lg:flex-row gap-6 p-6">
+  <div class="space-y-6">
     <div
-      class="w-full lg:w-1/4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 card-hover animate-slide-up"
+      class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 card-hover animate-slide-up"
     >
-      <span>My Addresses</span>
-      <span>Settings</span>
+      <div class="flex items-center gap-3 mb-6 pb-3 border-b border-gray-100">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0">
+          <i class="fas fa-id-card text-emerald-600 text-lg"></i>
+        </div>
+        <div>
+          <h2 class="text-xl font-semibold text-gray-800">Account Settings</h2>
+          <p class="text-xs text-gray-400">Your account details & role</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div class="mb-5">
+          <label class="block text-sm font-medium text-gray-600 mb-2">
+            <i class="fas fa-user-circle text-gray-400 mr-2 text-xs"></i>
+            Full Name
+          </label>
+          <input
+            type="text"
+            [value]="profile().fullName"
+            class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white/50"
+            placeholder="Enter your full name"
+          />
+        </div>
+
+        <div class="mb-5">
+          <label class="block text-sm font-medium text-gray-600 mb-2">
+            <i class="fas fa-envelope text-gray-400 mr-2 text-xs"></i>
+            Email Address
+          </label>
+          <input
+            type="email"
+            [value]="profile().email"
+            class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white/50"
+            placeholder="Enter your email address"
+          />
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-600 mb-2">
+            <i class="fas fa-phone-alt text-gray-400 mr-2 text-xs"></i>
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            [value]="profile().phoneNumber"
+            class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white/50"
+            placeholder="Enter your phone number"
+          />
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center gap-3">
+          <button
+            (click)="saveProfile()"
+            [disabled]="isSavingProfile()"
+            class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow w-full sm:w-auto"
+          >
+            <i class="fas fa-save mr-2"></i>
+            {{ isSavingProfile() ? 'Saving...' : 'Save Changes' }}
+          </button>
+
+          @if (profileSaved()) {
+            <div class="text-green-600 text-sm bg-green-50 px-3 py-2 rounded-lg animate-fade-in">
+              <i class="fas fa-check-circle mr-1"></i>
+              Profile updated successfully!
+            </div>
+          }
+        </div>
+      </div>
     </div>
 
-    <div class="w-full lg:w-3/4 space-y-6">
-      <div
-        class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 card-hover animate-slide-up"
-      >
-        <div class="flex items-center gap-3 mb-6 pb-3 border-b border-gray-100">
-          <div
-            class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0"
-          >
-            <i class="fas fa-id-card text-emerald-600 text-lg"></i>
-          </div>
-          <div>
-            <h2 class="text-xl font-semibold text-gray-800">Account Settings</h2>
-            <p class="text-xs text-gray-400">Your account details & role</p>
-          </div>
+    <div
+      class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 card-hover animate-slide-up"
+    >
+      <div class="flex items-center gap-3 mb-6 pb-3 border-b border-gray-100">
+        <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
+          <i class="fas fa-lock text-amber-600 text-lg"></i>
         </div>
-
-        <div class="space-y-4">
-          <div class="mb-5">
-            <label class="block text-sm font-medium text-gray-600 mb-2">
-              <i class="fas fa-user-circle text-gray-400 mr-2 text-xs"></i>
-              Full Name
-            </label>
-            <input
-              type="text"
-              [value]="profile().fullName"
-              class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white/50"
-              placeholder="Enter your full name"
-            />
-          </div>
-
-          <div class="mb-5">
-            <label class="block text-sm font-medium text-gray-600 mb-2">
-              <i class="fas fa-envelope text-gray-400 mr-2 text-xs"></i>
-              Email Address
-            </label>
-            <input
-              type="email"
-              [value]="profile().email"
-              class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white/50"
-              placeholder="Enter your email address"
-            />
-          </div>
-
-          <div class="mb-6">
-            <label class="block text-sm font-medium text-gray-600 mb-2">
-              <i class="fas fa-phone-alt text-gray-400 mr-2 text-xs"></i>
-              Phone Number
-            </label>
-            <input
-              type="tel"
-              [value]="profile().phoneNumber"
-              class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white/50"
-              placeholder="Enter your phone number"
-            />
-          </div>
-
-          <div class="flex flex-col sm:flex-row items-center gap-3">
-            <button
-              (click)="saveProfile()"
-              [disabled]="isSavingProfile()"
-              class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow w-full sm:w-auto"
-            >
-              <i class="fas fa-save mr-2"></i>
-              {{ isSavingProfile() ? 'Saving...' : 'Save Changes' }}
-            </button>
-
-            @if (profileSaved()) {
-              <div class="text-green-600 text-sm bg-green-50 px-3 py-2 rounded-lg animate-fade-in">
-                <i class="fas fa-check-circle mr-1"></i>
-                Profile updated successfully!
-              </div>
-            }
-          </div>
+        <div>
+          <h2 class="text-xl font-semibold text-gray-800">Change Password</h2>
+          <p class="text-xs text-gray-400">Update your account password</p>
         </div>
       </div>
 
-      <div
-        class="w-full lg:w-1/4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 card-hover animate-slide-up"
-      >
-        <div class="flex items-center gap-3 mb-6 pb-3 border-b border-gray-100">
-          <div class="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center shrink-0">
-            <i class="fas fa-user text-indigo-600 text-lg"></i>
-          </div>
-          <div>
-            <h2 class="text-xl font-semibold text-gray-800">Profile Information</h2>
-            <p class="text-xs text-gray-400">Update your personal details</p>
-          </div>
-        </div>
-
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 py-2">
-          <div class="text-sm font-medium text-gray-600">
-            <i class="fas fa-fingerprint text-gray-400 mr-2"></i> User ID
-          </div>
-        </div>
-
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 py-2">
-          <div class="text-sm font-medium text-gray-600">
-            <i class="fas fa-badge text-gray-400 mr-2"></i> Role
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 card-hover animate-slide-up"
-      >
-        <div class="flex items-center gap-3 mb-6 pb-3 border-b border-gray-100">
-          <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
-            <i class="fas fa-lock text-amber-600 text-lg"></i>
-          </div>
-          <div>
-            <h2 class="text-xl font-semibold text-gray-800">Change Password</h2>
-            <p class="text-xs text-gray-400">Update your account password</p>
-          </div>
-        </div>
-
-        <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
-          <div class="mb-4 relative">
-            <label class="block text-sm font-medium text-gray-600 mb-2">
-              <i class="fas fa-key text-gray-400 mr-2 text-xs"></i>
-              Current Password
-            </label>
-            <div class="relative">
-              <input
-                formControlName="currentPassword"
-                [type]="isHidden() ? 'password' : 'text'"
-                class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white/50"
-                placeholder="Enter your current password"
-              />
-              <button
-                type="button"
-                (click)="isHidden.set(!isHidden())"
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-              >
-                <i [class]="isHidden() ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'"></i>
-              </button>
-            </div>
-            @if (currentPassword?.invalid && currentPassword?.touched) {
-              <div class="text-red-500 text-xs mt-1">
-                Current password is required and must be at least 8 characters with uppercase,
-                lowercase, number and special character
-              </div>
-            }
-          </div>
-
-          <div class="mb-2 relative">
-            <label class="block text-sm font-medium text-gray-600 mb-2">
-              <i class="fas fa-plus-circle text-gray-400 mr-2 text-xs"></i>
-              New Password
-            </label>
-            <div class="relative">
-              <input
-                formControlName="password"
-                [type]="isHiddenNew() ? 'password' : 'text'"
-                (input)="onPasswordChange($event)"
-                class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white/50"
-                placeholder="Enter your new password"
-              />
-              <button
-                type="button"
-                (click)="isHiddenNew.set(!isHiddenNew())"
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-              >
-                <i [class]="isHiddenNew() ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'"></i>
-              </button>
-            </div>
-          </div>
-
-          @if (passwordStrength()) {
-            <div class="mb-3">
-              <div class="flex items-center gap-2">
-                <div class="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                  <div
-                    class="h-full transition-all duration-300 rounded-full"
-                    [class]="{
-                      'bg-red-500 w-1/3': passwordStrength() === 'weak',
-                      'bg-yellow-500 w-2/3': passwordStrength() === 'medium',
-                      'bg-green-500 w-full': passwordStrength() === 'strong',
-                    }"
-                  ></div>
-                </div>
-                <span
-                  class="text-xs"
-                  [class]="{
-                    'text-red-500': passwordStrength() === 'weak',
-                    'text-yellow-500': passwordStrength() === 'medium',
-                    'text-green-500': passwordStrength() === 'strong',
-                  }"
-                >
-                  @if (passwordStrength() === 'weak') {
-                    Weak
-                  } @else if (passwordStrength() === 'medium') {
-                    Medium
-                  } @else {
-                    Strong
-                  }
-                </span>
-              </div>
-            </div>
-          }
-
-          <div class="mb-5 relative">
-            <label class="block text-sm font-medium text-gray-600 mb-2">
-              <i class="fas fa-check-double text-gray-400 mr-2 text-xs"></i>
-              Confirm New Password
-            </label>
-            <div class="relative">
-              <input
-                formControlName="rePassword"
-                [type]="isHiddenConfirm() ? 'password' : 'text'"
-                class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white/50"
-                placeholder="Confirm your new password"
-              />
-              <button
-                type="button"
-                (click)="isHiddenConfirm.set(!isHiddenConfirm())"
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-              >
-                <i
-                  [class]="isHiddenConfirm() ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'"
-                ></i>
-              </button>
-            </div>
-          </div>
-
-          @if (
-            changePasswordForm.hasError('passwordMismatch') &&
-            changePasswordForm.get('rePassword')?.touched
-          ) {
-            <div
-              class="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm animate-fade-in"
-            >
-              <i class="fas fa-exclamation-triangle mr-2"></i>
-              New password and confirmation do not match
-            </div>
-          }
-
-          @if (passwordError()) {
-            <div
-              class="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm animate-fade-in"
-            >
-              <i class="fas fa-exclamation-triangle mr-2"></i>
-              {{ passwordError() }}
-            </div>
-          }
-
-          @if (passwordChanged()) {
-            <div
-              class="mb-4 p-3 bg-green-50 border border-green-200 rounded-xl text-green-600 text-sm animate-fade-in"
-            >
-              <i class="fas fa-check-circle mr-2"></i>
-              Password changed successfully!
-            </div>
-          }
-
-          <div class="flex flex-col sm:flex-row gap-3">
-            <button
-              type="submit"
-              [disabled]="isChangingPassword()"
-              class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow"
-            >
-              <i class="fas fa-sync-alt mr-2"></i>
-              {{ isChangingPassword() ? 'Processing...' : 'Change Password' }}
-            </button>
+      <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+        <div class="mb-4 relative">
+          <label class="block text-sm font-medium text-gray-600 mb-2">
+            <i class="fas fa-key text-gray-400 mr-2 text-xs"></i>
+            Current Password
+          </label>
+          <div class="relative">
+            <input
+              formControlName="currentPassword"
+              [type]="isHidden() ? 'password' : 'text'"
+              class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white/50"
+              placeholder="Enter your current password"
+            />
             <button
               type="button"
-              (click)="cancelPassword()"
-              class="px-6 py-2.5 border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-medium rounded-xl transition-all duration-200 hover:bg-gray-50"
+              (click)="isHidden.set(!isHidden())"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
             >
-              <i class="fas fa-times mr-2"></i>
-              Clear
+              <i [class]="isHidden() ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'"></i>
             </button>
           </div>
-        </form>
-      </div>
+          @if (currentPassword?.invalid && currentPassword?.touched) {
+            <div class="text-red-500 text-xs mt-1">
+              Current password is required and must be at least 8 characters with uppercase,
+              lowercase, number and special character
+            </div>
+          }
+        </div>
+
+        <div class="mb-2 relative">
+          <label class="block text-sm font-medium text-gray-600 mb-2">
+            <i class="fas fa-plus-circle text-gray-400 mr-2 text-xs"></i>
+            New Password
+          </label>
+          <div class="relative">
+            <input
+              formControlName="password"
+              [type]="isHiddenNew() ? 'password' : 'text'"
+              (input)="onPasswordChange($event)"
+              class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white/50"
+              placeholder="Enter your new password"
+            />
+            <button
+              type="button"
+              (click)="isHiddenNew.set(!isHiddenNew())"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            >
+              <i [class]="isHiddenNew() ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'"></i>
+            </button>
+          </div>
+        </div>
+
+        @if (passwordStrength()) {
+          <div class="mb-3">
+            <div class="flex items-center gap-2">
+              <div class="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  class="h-full transition-all duration-300 rounded-full"
+                  [class]="{
+                    'bg-red-500 w-1/3': passwordStrength() === 'weak',
+                    'bg-yellow-500 w-2/3': passwordStrength() === 'medium',
+                    'bg-green-500 w-full': passwordStrength() === 'strong',
+                  }"
+                ></div>
+              </div>
+              <span
+                class="text-xs"
+                [class]="{
+                  'text-red-500': passwordStrength() === 'weak',
+                  'text-yellow-500': passwordStrength() === 'medium',
+                  'text-green-500': passwordStrength() === 'strong',
+                }"
+              >
+                @if (passwordStrength() === 'weak') {
+                  Weak
+                } @else if (passwordStrength() === 'medium') {
+                  Medium
+                } @else {
+                  Strong
+                }
+              </span>
+            </div>
+          </div>
+        }
+
+        <div class="mb-5 relative">
+          <label class="block text-sm font-medium text-gray-600 mb-2">
+            <i class="fas fa-check-double text-gray-400 mr-2 text-xs"></i>
+            Confirm New Password
+          </label>
+          <div class="relative">
+            <input
+              formControlName="rePassword"
+              [type]="isHiddenConfirm() ? 'password' : 'text'"
+              class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white/50"
+              placeholder="Confirm your new password"
+            />
+            <button
+              type="button"
+              (click)="isHiddenConfirm.set(!isHiddenConfirm())"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            >
+              <i [class]="isHiddenConfirm() ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'"></i>
+            </button>
+          </div>
+        </div>
+
+        @if (
+          changePasswordForm.hasError('passwordMismatch') &&
+          changePasswordForm.get('rePassword')?.touched
+        ) {
+          <div
+            class="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm animate-fade-in"
+          >
+            <i class="fas fa-exclamation-triangle mr-2"></i>
+            New password and confirmation do not match
+          </div>
+        }
+
+        @if (passwordError()) {
+          <div
+            class="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm animate-fade-in"
+          >
+            <i class="fas fa-exclamation-triangle mr-2"></i>
+            {{ passwordError() }}
+          </div>
+        }
+
+        @if (passwordChanged()) {
+          <div
+            class="mb-4 p-3 bg-green-50 border border-green-200 rounded-xl text-green-600 text-sm animate-fade-in"
+          >
+            <i class="fas fa-check-circle mr-2"></i>
+            Password changed successfully!
+          </div>
+        }
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button
+            type="submit"
+            [disabled]="isChangingPassword()"
+            class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow"
+          >
+            <i class="fas fa-sync-alt mr-2"></i>
+            {{ isChangingPassword() ? 'Processing...' : 'Change Password' }}
+          </button>
+          <button
+            type="button"
+            (click)="cancelPassword()"
+            class="px-6 py-2.5 border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-medium rounded-xl transition-all duration-200 hover:bg-gray-50"
+          >
+            <i class="fas fa-times mr-2"></i>
+            Clear
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 
