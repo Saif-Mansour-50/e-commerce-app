@@ -5,7 +5,7 @@
         <div>
           <h3 class="font-semibold text-gray-800 mb-3">Categories</h3>
 
-          <div class="max-h-48 overflow-y-auto space-y-2 pr-1">
+          <div class="max-h-60 overflow-y-auto space-y-2 pr-1">
             @for (cat of categories(); track cat._id) {
               <label class="flex items-center gap-2 text-sm">
                 <input
@@ -63,7 +63,7 @@
 
         <div>
           <h3 class="font-semibold text-gray-800 mb-3">Brands</h3>
-          <div class="max-h-48 overflow-y-auto space-y-2 pr-1">
+          <div class="max-h-60 overflow-y-auto space-y-2 pr-1">
             @for (brand of brands(); track brand._id) {
               <label class="flex items-center gap-2 text-sm">
                 <input

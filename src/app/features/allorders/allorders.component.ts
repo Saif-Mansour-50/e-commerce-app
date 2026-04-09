@@ -4,7 +4,7 @@ import { CartService } from '../../core/services/cart.service';
 
 @Component({
   selector: 'app-allorders',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './allorders.component.html',
   styleUrl: './allorders.component.css',
 })
