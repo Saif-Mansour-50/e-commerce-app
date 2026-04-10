@@ -62,6 +62,12 @@ export const routes: Routes = [
       import('./features/settings/settings.component').then((c) => c.SettingsComponent),
     title: 'Beauty & Health',
   },
+  {
+    path: 'support',
+    loadComponent: () =>
+      import('./features/support/support.component').then((c) => c.SupportComponent),
+    title: 'Beauty & Health',
+  },
 
   {
     path: 'wishlist',
