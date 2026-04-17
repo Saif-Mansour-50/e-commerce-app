@@ -75,7 +75,6 @@
   display: none;
 }
 
-/* تحسين responsiveness */
 @media (max-width: 640px) {
   :host ::ng-deep .ngx-pagination li a,
   :host ::ng-deep .ngx-pagination li button {
