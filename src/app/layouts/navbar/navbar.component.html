@@ -4,25 +4,24 @@
       <img src="/assets/fresh-logo.svg" alt="FreshCart" class="h-7 md:h-8" />
     </a>
 
-    <div class="hidden lg:block grow max-w-md">
-      <div class="group relative">
-        <input
-          #searchInput
-          type="text"
-          (keydown.enter)="onEnter($event)"
-          placeholder="Search for products..."
-          class="w-full rounded-full border border-gray-200 bg-gray-50 px-6 py-2 pr-12 outline-none transition-all focus:border-emerald-500 focus:ring-emerald-500"
-        />
-        <button
-          (click)="onSearch()"
-          class="absolute right-1 cursor-pointer top-1 bottom-1 flex w-9 items-center justify-center rounded-full bg-emerald-600 text-white transition-colors hover:bg-emerald-700"
-        >
-          <i class="fas fa-search text-xs"></i>
-        </button>
-      </div>
-    </div>
-
     <div class="hidden items-center gap-6 md:flex">
+      <div class="hidden lg:block grow max-w-md">
+        <div class="group relative">
+          <input
+            #searchInput
+            type="text"
+            (keydown.enter)="onEnter($event)"
+            placeholder="Search for products..."
+            class="w-full rounded-full border border-gray-200 bg-gray-50 px-6 py-2 pr-12 outline-none transition-all focus:border-emerald-500 focus:ring-emerald-500"
+          />
+          <button
+            (click)="onSearch()"
+            class="absolute right-1 cursor-pointer top-1 bottom-1 flex w-9 items-center justify-center rounded-full bg-emerald-600 text-white transition-colors hover:bg-emerald-700"
+          >
+            <i class="fas fa-search text-xs"></i>
+          </button>
+        </div>
+      </div>
       <a
         routerLink="/"
         [routerLinkActiveOptions]="{ exact: true }"
@@ -38,9 +37,17 @@
       >
       <div class="group relative">
         <button
+          routerLink="/allCategories"
           class="flex items-center gap-1 py-2 font-medium text-gray-700 transition-colors group-hover:text-emerald-600"
         >
           Categories
+          <i class="fas fa-chevron-down text-2xs transition-transform group-hover:rotate-180"></i>
+        </button>
+        <button
+          routerLink="/brands"
+          class="flex items-center gap-1 py-2 font-medium text-gray-700 transition-colors group-hover:text-emerald-600"
+        >
+          Brands
           <i class="fas fa-chevron-down text-2xs transition-transform group-hover:rotate-180"></i>
         </button>
         <div
@@ -93,11 +100,7 @@
       >
         <i class="fa-regular fa-headphones fa-md"></i>
       </span>
-      <button
-        class="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-all hover:bg-gray-100 lg:hidden"
-      >
-        <i class="fas fa-search text-lg"></i>
-      </button>
+
       <button
         routerLink="/wishlist"
         routerLinkActive="text-primary"
