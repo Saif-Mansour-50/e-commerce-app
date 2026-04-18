@@ -44,7 +44,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   allProducts = signal<Product[]>([]);
   productList = signal<Product[]>([]);
-  itemsPerPage = signal<number>(12);
+  itemsPerPage = signal<number>(15);
   currentPage = signal<number>(1);
   totalItems = signal<number>(0);
 

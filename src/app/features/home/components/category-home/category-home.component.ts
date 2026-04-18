@@ -1,10 +1,11 @@
 import { CategoriesService } from './../../../../core/services/categories.service';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Catigory } from '../../../../core/models/catigory.interface';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-category-home',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './category-home.component.html',
   styleUrl: './category-home.component.css',
 })

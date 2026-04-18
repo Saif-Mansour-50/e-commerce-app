@@ -1,10 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { Catigory } from '../../core/models/catigory.interface';
 import { CategoriesService } from '../../core/services/categories.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-all-categories',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './all-categories.component.html',
   styleUrl: './all-categories.component.css',
 })
